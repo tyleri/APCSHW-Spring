@@ -42,6 +42,10 @@ public class KnightsTour{
         board = new int[size][size];
     }
 
+    public String name() {
+        return "ishikawa.tyler";
+    }
+
     public boolean solve(){
         return solve(0, 0, 1);
     }
@@ -76,8 +80,18 @@ public class KnightsTour{
     }
 
     public static void main(String[] args) {
-        KnightsTour kt = new KnightsTour(6);
-        if (kt.solve(4,3))
+        KnightsTour kt = new KnightsTour(5);
+        System.out.println(kt.name());
+
+        System.out.println();
+
+        if (kt.solve())
+            System.out.println( kt );
+
+        System.out.println();
+
+        kt = new KnightsTour(5);
+        if (kt.solve(3,3))
             System.out.println( kt );
     }
 
