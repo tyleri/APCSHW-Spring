@@ -50,7 +50,6 @@ public class CTravel {
         CTravel ct = new CTravel();
 
         int result = ct.getPaths();
-        System.out.println( result );
 
         try {
             Files.write( Paths.get("ctravel.out"),
