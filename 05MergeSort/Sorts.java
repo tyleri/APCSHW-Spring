@@ -62,8 +62,7 @@ public class Sorts {
         int[] sortedArr = merge(
                 Arrays.copyOfRange(arr, 0, arr.length/2),
                 Arrays.copyOfRange(arr, arr.length/2, arr.length) );
-        for (int i = 0; i < arr.length; i++)
-            arr[i] = sortedArr[i];
+	System.arraycopy( sortedArr, 0, arr, 0, arr.length );
     }
 
     // not part of the assignment
@@ -71,8 +70,7 @@ public class Sorts {
         Comparable[] sortedArr = merge(
                 Arrays.copyOfRange(arr, 0, arr.length/2),
                 Arrays.copyOfRange(arr, arr.length/2, arr.length) );
-        for (int i = 0; i < arr.length; i++)
-            arr[i] = sortedArr[i];
+	System.arraycopy( sortedArr, 0, arr, 0, arr.length );
     }
 
     public static void main(String[] args) {
