@@ -11,62 +11,65 @@ public class QuickSelect {
 
         int pivot = ary[pivotIndex], currIndex = si;
 
-		for (int i = ei - si; i > 0; i--) {
-			if (ary[currIndex] < pivot) {
+        for (int i = ei - si; i > 0; i--) {
+            if (currIndex != pivotIndex && ary[currIndex] < pivot) {
                 d[si] = ary[currIndex];
                 si++;
-            } else if (ary[currIndex] >= pivot) {
+            } else if (currIndex != pivotIndex && ary[currIndex] >= pivot) {
                 ei--;
                 d[ei] = ary[currIndex];
             }
             currIndex++;
-		}
+        }
         d[si] = pivot;
 
         System.arraycopy(d, 0, ary, 0, d.length);
-		return si;
+        return si;
     }
 
-	public static int quickselect(int[] ary, int n) {
-		
-		int pivotIndex = 0, si = 0, ei = ary.length;
-		Random r = new Random();
+    public static int quickselect(int[] ary, int n) {
+        
+        int pivotIndex, si = 0, ei = ary.length;
+        Random r = new Random();
 
-		do {
-			System.out.println(si + " " + ei);
-			if (ei > si)
-				pivotIndex = partition(ary, si, ei, r.nextInt(ei - si) + si);
-			if (pivotIndex > n)
-				ei = pivotIndex - 1;
-			else if (pivotIndex < n)
-				si = pivotIndex + 1;
-		} while (pivotIndex != n);
+        do {
+            pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si) + si) );
+            if (pivotIndex > n)
+                ei = pivotIndex;
+            else if (pivotIndex < n)
+                si = pivotIndex + 1;
+        } while (pivotIndex != n);
 
-		return ary[n];
-	}
+        return ary[n];
+    }
 
     public static void main(String[] args) {
         
-        int[] test = new int[5];
+        int[] test = new int[20];
         Random r = new Random();
         for (int i = 0; i < test.length; i++)
             test[i] = r.nextInt(21) - 10; // random ints from -10 to 10
 
+        System.out.println("Random array of ints:");
         for (int i = 0; i < test.length; i++)
             System.out.print(test[i] + " ");
         System.out.println();
+        System.out.println();
 
-        //System.out.println( partition(test, 0, test.length, 0) ); // partitions the whole array
+        try {
+            int index = r.nextInt(test.length);
+            System.out.println( "Value at index " + index + " when the array is sorted: " +
+                    quickselect(test, index) );
 
-		try {
-			System.out.println( quickselect(test, 1) );
-			//Arrays.sort(test);
-			for (int i = 0; i < test.length; i++)
-				System.out.print(test[i] + " ");
-			System.out.println();
-		} catch (ArrayIndexOutOfBoundsException e) {
-			e.printStackTrace();
-		}
+            System.out.println();
+            Arrays.sort(test);
+            System.out.println("Sorted Array (for verification):");
+            for (int i = 0; i < test.length; i++)
+                System.out.print(test[i] + " ");
+            System.out.println();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
 
     }
 
