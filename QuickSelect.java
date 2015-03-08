@@ -29,6 +29,7 @@ public class QuickSelect {
 
     public static int quickselect(int[] ary, int n) {
         
+        n--;
         int pivotIndex, si = 0, ei = ary.length;
         Random r = new Random();
 
@@ -58,7 +59,7 @@ public class QuickSelect {
 
         try {
             int index = r.nextInt(test.length);
-            System.out.println( "Value at index " + index + " when the array is sorted: " +
+            System.out.println( "The " + index + "(th/st/nd) value when the array is sorted: " +
                     quickselect(test, index) );
 
             System.out.println();
