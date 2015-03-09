@@ -1,10 +1,9 @@
 import java.util.Random;
 import java.util.Arrays;
 
-public class QuickSelect {
+public class Quick {
 
     public static int partition(int[] ary, int si, int ei, int pivotIndex) {
-
         int[] d = new int[ary.length];
         System.arraycopy(ary, 0, d, 0, si);
         System.arraycopy(ary, ei, d, ei, ary.length - ei);
@@ -28,13 +27,12 @@ public class QuickSelect {
     }
 
     public static int quickselect(int[] ary, int n) {
-        
         n--;
         int pivotIndex, si = 0, ei = ary.length;
         Random r = new Random();
 
         do {
-            pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si) + si) );
+            pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si-1) + si) );
             if (pivotIndex > n)
                 ei = pivotIndex;
             else if (pivotIndex < n)
@@ -44,12 +42,25 @@ public class QuickSelect {
         return ary[n];
     }
 
+    public static void quicksort(int[] ary) {
+        quicksort(ary, 0, ary.length);
+    }
+
+    private static void quicksort(int[] ary, int si, int ei) {
+        int pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si-1) + si) );
+        
+        if (ei - si > 2) {
+            quicksort(ary, si, pivotIndex);
+            quicksort(ary, pivotIndex+1, ei);
+        }
+    }
+
     public static void main(String[] args) {
         
-        int[] test = new int[20];
+        int[] test = new int[100];
         Random r = new Random();
         for (int i = 0; i < test.length; i++)
-            test[i] = r.nextInt(21) - 10; // random ints from -10 to 10
+            test[i] = r.nextInt(2000001) - 1000000;
 
         System.out.println("Random array of ints:");
         for (int i = 0; i < test.length; i++)
@@ -57,6 +68,13 @@ public class QuickSelect {
         System.out.println();
         System.out.println();
 
+        quicksort(test);
+        System.out.println("After sorting:");
+        for (int i = 0; i < test.length; i++)
+            System.out.print(test[i] + " ");
+        System.out.println();
+
+        /*
         try {
             int index = r.nextInt(test.length);
             System.out.println( "The " + index + "(th/st/nd) value when the array is sorted: " +
@@ -71,6 +89,7 @@ public class QuickSelect {
         } catch (ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
+        */
 
     }
 
