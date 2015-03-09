@@ -17,8 +17,7 @@ public class Quick {
             } else if (currIndex != pivotIndex && ary[currIndex] >= pivot) {
                 ei--;
                 d[ei] = ary[currIndex];
-            }
-            currIndex++;
+            } currIndex++;
         }
         d[si] = pivot;
 
@@ -47,15 +46,12 @@ public class Quick {
     }
 
     private static void quicksort(int[] ary, int si, int ei) {
-        int pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si-1) + si) );
-        
-        if (ei - si > 2) {
+        if (ei - si > 1) {
+            int pivotIndex = partition(ary, si, ei, (int)(Math.random() * (ei-si-1) + si) );
             quicksort(ary, si, pivotIndex);
             quicksort(ary, pivotIndex+1, ei);
         }
-    }
-
-    public static void main(String[] args) {
+    } public static void main(String[] args) {
         
         int[] test = new int[100];
         Random r = new Random();
@@ -63,16 +59,12 @@ public class Quick {
             test[i] = r.nextInt(2000001) - 1000000;
 
         System.out.println("Random array of ints:");
-        for (int i = 0; i < test.length; i++)
-            System.out.print(test[i] + " ");
-        System.out.println();
+        System.out.println(Arrays.toString(test));
         System.out.println();
 
         quicksort(test);
         System.out.println("After sorting:");
-        for (int i = 0; i < test.length; i++)
-            System.out.print(test[i] + " ");
-        System.out.println();
+        System.out.println(Arrays.toString(test));
 
         /*
         try {
