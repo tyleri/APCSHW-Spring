@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Arrays;
 
-public class Quick {
+public class Sorts {
 
     public static int partition(int[] ary, int si, int ei, int pivotIndex) {
         int[] d = new int[ary.length];
