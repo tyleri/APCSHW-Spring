@@ -1,0 +1,25 @@
+GOAL: Linked Lists
+
+Methods:
+    isEmpty()
+    get(int index)
+    add(value)
+    remove(int index)
+    size()
+    toString()
+    set(int index, value)
+
+extra:
+    addAll()
+    getSublist(start, end)
+
+
+LNode class
+    Instance variables:
+        - private Object data
+        - private LNode next
+    Methods:
+        - Object getData
+        - LNode getNext
+        - void setData
+        - void setNext
