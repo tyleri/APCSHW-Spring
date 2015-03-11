@@ -1,8 +1,8 @@
-public class LinkedList {
+public class MyLinkedList {
 
     private LNode start;
 
-    public LinkedList() {
+    public MyLinkedList() {
         start = new LNode();
     }
 
@@ -11,12 +11,31 @@ public class LinkedList {
     }
 
     public Object get(int index) {
-        LNode curr = start.getNext();
+        if (index < 0)
+            throw new IndexOutOfBoundsException();
 
-        for (int i = 0; i < index; i++)
-            if (curr != null)
-                curr = curr.getNext();
+        LNode curr = start;
+
+        for (int i = 0; i <= index; i++) {
+            curr = curr.getNext();
+            if (curr == null)
+                throw new IndexOutOfBoundsException();
+        }
         return curr.getData();
+    }
+
+    public void set(int index, Object value) {
+        if (index < 0)
+            throw new IndexOutOfBoundsException();
+
+        LNode curr = start;
+
+        for (int i = 0; i <= index; i++) {
+            curr = curr.getNext();
+            if (curr == null)
+                throw new IndexOutOfBoundsException();
+        }
+        curr.setData(value);
     }
 
     public void add(Object value) {
@@ -28,12 +47,15 @@ public class LinkedList {
     }
 
     public void remove(int index) {
+        if (index < 0)
+            throw new IndexOutOfBoundsException();
+
         LNode curr = start;
 
         for (int i = 0; i < index; i++) {
             curr = curr.getNext();
-            if (curr == null)
-                return;
+            if (curr.getNext() == null)
+                throw new IndexOutOfBoundsException();
         }
         curr.setNext( curr.getNext().getNext() );
     }
@@ -62,16 +84,8 @@ public class LinkedList {
         return s;
     }
 
-    public void set(int index, Object value) {
-        LNode curr = start.getNext();
-
-        for (int i = 0; i < index; i++)
-            curr = curr.getNext();
-        curr.setData(value);
-    }
-
     public static void main(String[] args) {
-        LinkedList list = new LinkedList();
+        MyLinkedList list = new MyLinkedList();
 
         System.out.println("Is the list empty? " + list.isEmpty());
 
@@ -95,5 +109,11 @@ public class LinkedList {
         System.out.println("Setting the element at index 2 to 'z'");
         list.set(2, 'z');
         System.out.println(list);
+
+        System.out.println("Where is 'z'? " + list.indexOf('z'));
+        System.out.println("Where is 42? " + list.indexOf(42));
+        System.out.println("Where is \"pi\"? " + list.indexOf("pi"));
+        System.out.println("Where is 3.14? " + list.indexOf(3.14));
+
     }
 }
