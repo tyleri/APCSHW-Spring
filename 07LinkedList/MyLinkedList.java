@@ -46,6 +46,38 @@ public class MyLinkedList {
         curr.setNext( new LNode(value) );
     }
 
+    public void add(int index, Object value) {
+        if (index < 0)
+            throw new IndexOutOfBoundsException();
+
+        LNode curr = start;
+
+        for (int i = 0; i < index; i++) {
+            curr = curr.getNext();
+            if (curr == null)
+                throw new IndexOutOfBoundsException();
+        }
+
+        LNode n = new LNode(value);
+        n.setNext( curr.getNext() );
+        curr.setNext(n);
+    }
+
+    public int indexOf(Object value) {
+        LNode curr = start.getNext();
+
+        for (int i = 0; curr != null; i++) {
+            if ( curr.getData().equals(value) )
+                return i;
+            curr = curr.getNext();
+        }
+        return -1;
+    }
+
+    public void remove() {
+        remove(0);
+    }
+
     public void remove(int index) {
         if (index < 0)
             throw new IndexOutOfBoundsException();
