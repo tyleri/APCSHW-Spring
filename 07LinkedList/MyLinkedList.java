@@ -24,7 +24,7 @@ public class MyLinkedList {
         return curr.getData();
     }
 
-    public void set(int index, Object value) {
+    public Object set(int index, Object value) {
         if (index < 0)
             throw new IndexOutOfBoundsException();
 
@@ -35,15 +35,18 @@ public class MyLinkedList {
             if (curr == null)
                 throw new IndexOutOfBoundsException();
         }
+        Object replaced = curr.getData();
         curr.setData(value);
+        return replaced;
     }
 
-    public void add(Object value) {
+    public boolean add(Object value) {
         LNode curr = start;
 
         while (curr.getNext() != null)
             curr = curr.getNext();
         curr.setNext( new LNode(value) );
+        return true;
     }
 
     public void add(int index, Object value) {
@@ -78,7 +81,7 @@ public class MyLinkedList {
         remove(0);
     }
 
-    public void remove(int index) {
+    public Object remove(int index) {
         if (index < 0)
             throw new IndexOutOfBoundsException();
 
@@ -89,7 +92,9 @@ public class MyLinkedList {
             if (curr.getNext() == null)
                 throw new IndexOutOfBoundsException();
         }
+        Object removed = curr.getNext().getData();
         curr.setNext( curr.getNext().getNext() );
+        return removed;
     }
 
     public int size() {
@@ -122,7 +127,7 @@ public class MyLinkedList {
         System.out.println("Is the list empty? " + list.isEmpty());
 
         System.out.println("Adding elements...");
-        list.add(42);
+        System.out.println(list.add(42));
         list.add("pi");
         list.add(3.14);
         list.add('c');
@@ -133,13 +138,13 @@ public class MyLinkedList {
         System.out.println("Element at index 3? " + list.get(3));
         
         System.out.println("Removing the element at index 2...");
-        list.remove(2);
+        System.out.println(list.remove(2));
         System.out.println(list);
 
         System.out.println("Size of the list? " + list.size());
 
         System.out.println("Setting the element at index 2 to 'z'");
-        list.set(2, 'z');
+        System.out.println(list.set(2, 'z'));
         System.out.println(list);
 
         System.out.println("Where is 'z'? " + list.indexOf('z'));
