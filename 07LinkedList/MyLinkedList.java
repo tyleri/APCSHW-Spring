@@ -1,73 +1,76 @@
 public class MyLinkedList {
 
+    private int size;
     private LNode start;
 
-    public MyLinkedList() {
-        start = new LNode();
-    }
+    public MyLinkedList() { }
 
     public boolean isEmpty() {
-        return start.getNext() == null;
+        return size == 0;
     }
 
     public Object get(int index) {
-        if (index < 0)
+        if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
         LNode curr = start;
 
-        for (int i = 0; i <= index; i++) {
+        for (int i = 0; i < index; i++)
             curr = curr.getNext();
-            if (curr == null)
-                throw new IndexOutOfBoundsException();
-        }
+
         return curr.getData();
     }
 
     public Object set(int index, Object value) {
-        if (index < 0)
+        if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
         LNode curr = start;
 
-        for (int i = 0; i <= index; i++) {
+        for (int i = 0; i < index; i++)
             curr = curr.getNext();
-            if (curr == null)
-                throw new IndexOutOfBoundsException();
-        }
+
         Object replaced = curr.getData();
         curr.setData(value);
         return replaced;
     }
 
     public boolean add(Object value) {
-        LNode curr = start;
+        if (start == null)
+            start = new LNode(value);
+        else {
+            LNode curr = start;
 
-        while (curr.getNext() != null)
-            curr = curr.getNext();
-        curr.setNext( new LNode(value) );
+            while (curr.getNext() != null)
+                curr = curr.getNext();
+            curr.setNext( new LNode(value) );
+        }
+        size++;
         return true;
     }
 
     public void add(int index, Object value) {
-        if (index < 0)
-            throw new IndexOutOfBoundsException();
-
-        LNode curr = start;
-
-        for (int i = 0; i < index; i++) {
-            curr = curr.getNext();
-            if (curr == null)
-                throw new IndexOutOfBoundsException();
-        }
-
         LNode n = new LNode(value);
-        n.setNext( curr.getNext() );
-        curr.setNext(n);
+
+        if (index < 0 || size <= index)
+            throw new IndexOutOfBoundsException();
+        else if (index == 0) {
+            n.setNext(start);
+            start = n;
+        } else {
+            LNode curr = start;
+
+            for (int i = 1; i < index; i++)
+                curr = curr.getNext();
+
+            n.setNext( curr.getNext() );
+            curr.setNext(n);
+        }
+        size++;
     }
 
     public int indexOf(Object value) {
-        LNode curr = start.getNext();
+        LNode curr = start;
 
         for (int i = 0; curr != null; i++) {
             if ( curr.getData().equals(value) )
@@ -82,34 +85,34 @@ public class MyLinkedList {
     }
 
     public Object remove(int index) {
-        if (index < 0)
+        Object removed;
+
+        if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
+        else if (index == 0) {
+            removed = start;
+            start = start.getNext();
+        } else {
+            LNode curr = start;
 
-        LNode curr = start;
-
-        for (int i = 0; i < index; i++) {
-            curr = curr.getNext();
-            if (curr.getNext() == null)
-                throw new IndexOutOfBoundsException();
+            for (int i = 1; i < index; i++) {
+                curr = curr.getNext();
+                if (curr.getNext() == null)
+                    throw new IndexOutOfBoundsException();
+            }
+            removed = curr.getNext().getData();
+            curr.setNext( curr.getNext().getNext() );
         }
-        Object removed = curr.getNext().getData();
-        curr.setNext( curr.getNext().getNext() );
+        size--;
         return removed;
     }
 
     public int size() {
-        LNode curr = start.getNext();
-        int count = 0;
-
-        while ( curr != null ) {
-            count++;
-            curr = curr.getNext();
-        }
-        return count;
+        return size;
     }
 
     public String toString() {
-        LNode curr = start.getNext();
+        LNode curr = start;
         String s = "[ ";
 
         while ( curr != null ) {
