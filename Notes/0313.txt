@@ -1,0 +1,11 @@
+GOAL: Linked List Runtimes
+
+add(a)      -> O(n)
+add(a, b)   -> O(n)
+size()      -> O(n)
+remove(a)   -> O(n)
+
+improving:
+size()      -> O(1) if keeping track using instance variable
+
+
