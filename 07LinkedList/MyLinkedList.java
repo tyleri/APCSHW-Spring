@@ -2,6 +2,7 @@ public class MyLinkedList {
 
     private int size;
     private LNode head;
+    private LNode tail;
 
     public MyLinkedList() { }
 
@@ -36,14 +37,12 @@ public class MyLinkedList {
     }
 
     public boolean add(Object value) {
-        if (head == null)
+        if (head == null) {
             head = new LNode(value);
-        else {
-            LNode curr = head;
-
-            while (curr.getNext() != null)
-                curr = curr.getNext();
-            curr.setNext( new LNode(value) );
+            tail = head;
+        } else {
+            tail.setNext( new LNode(value) );
+            tail = tail.getNext();
         }
         size++;
         return true;
@@ -52,8 +51,10 @@ public class MyLinkedList {
     public void add(int index, Object value) {
         LNode n = new LNode(value);
 
-        if (index < 0 || size <= index)
+        if (index < 0 || size < index)
             throw new IndexOutOfBoundsException();
+        else if (index == size)
+            add(value);
         else if (index == 0) {
             n.setNext(head);
             head = n;
@@ -95,13 +96,16 @@ public class MyLinkedList {
         } else {
             LNode curr = head;
 
-            for (int i = 1; i < index; i++) {
+            for (int i = 1; i < index; i++)
                 curr = curr.getNext();
-                if (curr.getNext() == null)
-                    throw new IndexOutOfBoundsException();
-            }
             removed = curr.getNext().getData();
-            curr.setNext( curr.getNext().getNext() );
+
+            if (curr.getNext() == tail) {
+                curr.setNext(null);
+                tail = curr;
+            } else {
+                curr.setNext( curr.getNext().getNext() );
+            }
         }
         size--;
         return removed;
@@ -140,8 +144,8 @@ public class MyLinkedList {
         System.out.println("Element at index 1? " + list.get(1));
         System.out.println("Element at index 3? " + list.get(3));
         
-        System.out.println("Removing the element at index 2...");
-        System.out.println(list.remove(2));
+        System.out.println("Removing the element at index 3...");
+        System.out.println(list.remove(3));
         System.out.println(list);
 
         System.out.println("Size of the list? " + list.size());
