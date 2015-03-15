@@ -1,7 +1,7 @@
 public class MyLinkedList {
 
     private int size;
-    private LNode start;
+    private LNode head;
 
     public MyLinkedList() { }
 
@@ -13,7 +13,7 @@ public class MyLinkedList {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
-        LNode curr = start;
+        LNode curr = head;
 
         for (int i = 0; i < index; i++)
             curr = curr.getNext();
@@ -25,7 +25,7 @@ public class MyLinkedList {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
-        LNode curr = start;
+        LNode curr = head;
 
         for (int i = 0; i < index; i++)
             curr = curr.getNext();
@@ -36,10 +36,10 @@ public class MyLinkedList {
     }
 
     public boolean add(Object value) {
-        if (start == null)
-            start = new LNode(value);
+        if (head == null)
+            head = new LNode(value);
         else {
-            LNode curr = start;
+            LNode curr = head;
 
             while (curr.getNext() != null)
                 curr = curr.getNext();
@@ -55,10 +55,10 @@ public class MyLinkedList {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
         else if (index == 0) {
-            n.setNext(start);
-            start = n;
+            n.setNext(head);
+            head = n;
         } else {
-            LNode curr = start;
+            LNode curr = head;
 
             for (int i = 1; i < index; i++)
                 curr = curr.getNext();
@@ -70,7 +70,7 @@ public class MyLinkedList {
     }
 
     public int indexOf(Object value) {
-        LNode curr = start;
+        LNode curr = head;
 
         for (int i = 0; curr != null; i++) {
             if ( curr.getData().equals(value) )
@@ -90,10 +90,10 @@ public class MyLinkedList {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
         else if (index == 0) {
-            removed = start;
-            start = start.getNext();
+            removed = head;
+            head = head.getNext();
         } else {
-            LNode curr = start;
+            LNode curr = head;
 
             for (int i = 1; i < index; i++) {
                 curr = curr.getNext();
@@ -112,7 +112,7 @@ public class MyLinkedList {
     }
 
     public String toString() {
-        LNode curr = start;
+        LNode curr = head;
         String s = "[ ";
 
         while ( curr != null ) {
