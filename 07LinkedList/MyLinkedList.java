@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class MyLinkedList {
 
     private int size;
@@ -81,8 +83,13 @@ public class MyLinkedList {
         return -1;
     }
 
-    public void remove() {
-        remove(0);
+    public Object remove() {
+        if (head == null)
+            throw new NoSuchElementException();
+        Object removed = head.getData();
+        head = head.getNext();
+        size--;
+        return removed;
     }
 
     public Object remove(int index) {
@@ -91,8 +98,7 @@ public class MyLinkedList {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
         else if (index == 0) {
-            removed = head;
-            head = head.getNext();
+            return remove();
         } else {
             LNode curr = head;
 
@@ -138,6 +144,7 @@ public class MyLinkedList {
         list.add("pi");
         list.add(3.14);
         list.add('c');
+        list.add(2015);
 
         System.out.println(list);
 
@@ -146,6 +153,9 @@ public class MyLinkedList {
         
         System.out.println("Removing the element at index 3...");
         System.out.println(list.remove(3));
+        System.out.println(list);
+        System.out.println("Removing the first element...");
+        System.out.println(list.remove());
         System.out.println(list);
 
         System.out.println("Size of the list? " + list.size());
