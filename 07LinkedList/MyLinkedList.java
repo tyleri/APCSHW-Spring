@@ -1,12 +1,10 @@
 import java.util.NoSuchElementException;
 
-public class MyLinkedList {
+public class MyLinkedList<T> {
 
     private int size;
-    private LNode head;
-    private LNode tail;
-
-    public MyLinkedList() { }
+    private LNode<T> head;
+    private LNode<T> tail;
 
     public String name() {
         return "Ishikawa,Tyler";
@@ -16,11 +14,11 @@ public class MyLinkedList {
         return size == 0;
     }
 
-    public Object get(int index) {
+    public T get(int index) {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
-        LNode curr = head;
+        LNode<T> curr = head;
 
         for (int i = 0; i < index; i++)
             curr = curr.getNext();
@@ -28,34 +26,34 @@ public class MyLinkedList {
         return curr.getData();
     }
 
-    public Object set(int index, Object value) {
+    public T set(int index, T value) {
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
 
-        LNode curr = head;
+        LNode<T> curr = head;
 
         for (int i = 0; i < index; i++)
             curr = curr.getNext();
 
-        Object replaced = curr.getData();
+        T replaced = curr.getData();
         curr.setData(value);
         return replaced;
     }
 
-    public boolean add(Object value) {
+    public boolean add(T value) {
         if (head == null) {
-            head = new LNode(value);
+            head = new LNode<T>(value);
             tail = head;
         } else {
-            tail.setNext( new LNode(value) );
+            tail.setNext( new LNode<T>(value) );
             tail = tail.getNext();
         }
         size++;
         return true;
     }
 
-    public void add(int index, Object value) {
-        LNode n = new LNode(value);
+    public void add(int index, T value) {
+        LNode n = new LNode<T>(value);
 
         if (index < 0 || size < index)
             throw new IndexOutOfBoundsException();
@@ -76,7 +74,7 @@ public class MyLinkedList {
         size++;
     }
 
-    public int indexOf(Object value) {
+    public int indexOf(T value) {
         LNode curr = head;
 
         for (int i = 0; curr != null; i++) {
@@ -87,24 +85,24 @@ public class MyLinkedList {
         return -1;
     }
 
-    public Object remove() {
+    public T remove() {
         if (head == null)
             throw new NoSuchElementException();
-        Object removed = head.getData();
+        T removed = head.getData();
         head = head.getNext();
         size--;
         return removed;
     }
 
-    public Object remove(int index) {
-        Object removed;
+    public T remove(int index) {
+        T removed;
 
         if (index < 0 || size <= index)
             throw new IndexOutOfBoundsException();
         else if (index == 0) {
             return remove();
         } else {
-            LNode curr = head;
+            LNode<T> curr = head;
 
             for (int i = 1; i < index; i++)
                 curr = curr.getNext();
@@ -139,15 +137,15 @@ public class MyLinkedList {
     }
 
     public static void main(String[] args) {
-        MyLinkedList list = new MyLinkedList();
+        MyLinkedList<int> list = new MyLinkedList<int>();
 
         System.out.println("Is the list empty? " + list.isEmpty());
 
         System.out.println("Adding elements...");
         System.out.println(list.add(42));
-        list.add("pi");
-        list.add(3.14);
-        list.add('c');
+        list.add(10);
+        list.add(30);
+        list.add(1000);
         list.add(2015);
 
         System.out.println(list);
@@ -164,13 +162,13 @@ public class MyLinkedList {
 
         System.out.println("Size of the list? " + list.size());
 
-        System.out.println("Setting the element at index 2 to 'z'");
-        System.out.println(list.set(2, 'z'));
+        System.out.println("Setting the element at index 2 to 9000");
+        System.out.println(list.set(2, 9000));
         System.out.println(list);
 
         System.out.println("Where is 'z'? " + list.indexOf('z'));
         System.out.println("Where is 42? " + list.indexOf(42));
-        System.out.println("Where is \"pi\"? " + list.indexOf("pi"));
+        System.out.println("Where is 9000? " + list.indexOf("pi"));
         System.out.println("Where is 3.14? " + list.indexOf(3.14));
 
     }
