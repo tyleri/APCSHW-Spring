@@ -1,0 +1,9 @@
+Last day to make tweaks and fixes for MyLinkedList
+
+    - MyLinkedList.java should include the name() method
+    - Create test conditions to determine if your linked
+      list behaves properly
+    - Implement generics in your linked list
+
+Also, make sure to fix all previous assignments. They
+will not be graded again after today.
