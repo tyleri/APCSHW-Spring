@@ -1,7 +1,7 @@
 public class LNode<T> {
 
     private T data;
-    private LNode next;
+    private LNode<T> next;
 
     public LNode() { }
 

@@ -53,7 +53,7 @@ public class MyLinkedList<T> {
     }
 
     public void add(int index, T value) {
-        LNode n = new LNode<T>(value);
+        LNode<T> n = new LNode<T>(value);
 
         if (index < 0 || size < index)
             throw new IndexOutOfBoundsException();
@@ -63,7 +63,7 @@ public class MyLinkedList<T> {
             n.setNext(head);
             head = n;
         } else {
-            LNode curr = head;
+            LNode<T> curr = head;
 
             for (int i = 1; i < index; i++)
                 curr = curr.getNext();
@@ -137,7 +137,7 @@ public class MyLinkedList<T> {
     }
 
     public static void main(String[] args) {
-        MyLinkedList<int> list = new MyLinkedList<int>();
+        MyLinkedList<Integer> list = new MyLinkedList<>();
 
         System.out.println("Is the list empty? " + list.isEmpty());
 
@@ -166,10 +166,10 @@ public class MyLinkedList<T> {
         System.out.println(list.set(2, 9000));
         System.out.println(list);
 
-        System.out.println("Where is 'z'? " + list.indexOf('z'));
+        System.out.println("Where is 30? " + list.indexOf(30));
         System.out.println("Where is 42? " + list.indexOf(42));
-        System.out.println("Where is 9000? " + list.indexOf("pi"));
-        System.out.println("Where is 3.14? " + list.indexOf(3.14));
+        System.out.println("Where is 9000? " + list.indexOf(9000));
+        System.out.println("Where is 10? " + list.indexOf(10));
 
     }
 }
