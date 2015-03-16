@@ -8,6 +8,10 @@ public class MyLinkedList {
 
     public MyLinkedList() { }
 
+    public String name() {
+        return "Ishikawa,Tyler";
+    }
+
     public boolean isEmpty() {
         return size == 0;
     }
