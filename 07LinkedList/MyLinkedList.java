@@ -138,6 +138,7 @@ public class MyLinkedList<T> {
 
     public static void main(String[] args) {
         MyLinkedList<Integer> list = new MyLinkedList<>();
+        System.out.println(list.name());
 
         System.out.println("Is the list empty? " + list.isEmpty());
 
@@ -146,7 +147,7 @@ public class MyLinkedList<T> {
         list.add(10);
         list.add(30);
         list.add(1000);
-        list.add(2015);
+        list.add(3, 2015);
 
         System.out.println(list);
 
