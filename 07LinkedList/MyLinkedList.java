@@ -1,6 +1,32 @@
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
-public class MyLinkedList<T> {
+public class MyLinkedList<T> implements Iterable {
+
+    private class MyLLIterator<T> implements Iterator {
+
+        LNode<T> ln;
+
+        private MyLLIterator() { }
+
+        private MyLLIterator(LNode<T> head) {
+            ln = head;
+        }
+
+        protected T next() {
+            ln = ln.getNext();
+            return ln.getData();
+        }
+
+        protected boolean hasNext() {
+            return ln.getNext() != null;
+        }
+
+        protected void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+    }
 
     private int size;
     private LNode<T> head;
@@ -136,8 +162,12 @@ public class MyLinkedList<T> {
         return s;
     }
 
+    public Iterator<T> iterator() {
+        return new MyLLIterator<T>(head);
+    }
+
     public static void main(String[] args) {
-        MyLinkedList<Integer> list = new MyLinkedList<>();
+        MyLinkedList<Integer> list = new MyLinkedList<Integer>();
         System.out.println(list.name());
 
         System.out.println("Is the list empty? " + list.isEmpty());
@@ -172,5 +202,7 @@ public class MyLinkedList<T> {
         System.out.println("Where is 9000? " + list.indexOf(9000));
         System.out.println("Where is 10? " + list.indexOf(10));
 
+        for (int i : list)
+            System.out.println(i);
     }
 }
