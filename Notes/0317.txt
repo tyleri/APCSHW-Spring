@@ -1,0 +1,27 @@
+GOAL: Iterators vs. Iterable<T>
+
+Iterable - to use the enhanced for loop
+
+int[] ary = {1,9,4,2,b,1,7,4};
+for (int i : ary) {
+    System.out.println(i);
+}
+
+ary can be any iterable class or a plain array
+
+Iterator<T> iterator() {
+    return new MyLLIterator();
+}
+
+- must create a new class, iterator isn't built in
+- MyLLIterator constructor requires an LNode
+- MyLLIterator will be an internal class, defined inside MyLinkedList
+
+example of internal classes:
+    public class a {
+        private class b {
+
+        }
+
+        b var1; // b can only be used inside the a class
+    }
