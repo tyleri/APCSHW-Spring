@@ -166,7 +166,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return s;
     }
 
-    public Iterator iterator() {
+    public Iterator<T> iterator() {
         return new MyLLIterator();
     }
 
