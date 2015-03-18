@@ -1,28 +1,32 @@
 import java.util.NoSuchElementException;
 import java.util.Iterator;
+import java.util.ArrayList;
 
-public class MyLinkedList<T> implements Iterable {
+public class MyLinkedList<T> implements Iterable<T> {
 
-    private class MyLLIterator<T> implements Iterator {
+    private class MyLLIterator implements Iterator<T> {
 
         LNode<T> ln;
 
-        private MyLLIterator() { }
-
-        private MyLLIterator(LNode<T> head) {
+        public MyLLIterator() {
             ln = head;
         }
 
-        protected T next() {
-            ln = ln.getNext();
-            return ln.getData();
+        public T next() {
+            if ( hasNext() ) {
+                T data = ln.getData();
+                ln = ln.getNext();
+                return data;
+            } else {
+                throw new NoSuchElementException();
+            }
         }
 
-        protected boolean hasNext() {
-            return ln.getNext() != null;
+        public boolean hasNext() {
+            return ln != null;
         }
 
-        protected void remove() {
+        public void remove() {
             throw new UnsupportedOperationException();
         }
 
@@ -101,7 +105,7 @@ public class MyLinkedList<T> implements Iterable {
     }
 
     public int indexOf(T value) {
-        LNode curr = head;
+        LNode<T> curr = head;
 
         for (int i = 0; curr != null; i++) {
             if ( curr.getData().equals(value) )
@@ -150,7 +154,7 @@ public class MyLinkedList<T> implements Iterable {
     }
 
     public String toString() {
-        LNode curr = head;
+        LNode<T> curr = head;
         String s = "[ ";
 
         while ( curr != null ) {
@@ -162,8 +166,8 @@ public class MyLinkedList<T> implements Iterable {
         return s;
     }
 
-    public Iterator<T> iterator() {
-        return new MyLLIterator<T>(head);
+    public Iterator iterator() {
+        return new MyLLIterator();
     }
 
     public static void main(String[] args) {
@@ -202,7 +206,19 @@ public class MyLinkedList<T> implements Iterable {
         System.out.println("Where is 9000? " + list.indexOf(9000));
         System.out.println("Where is 10? " + list.indexOf(10));
 
-        for (int i : list)
+        for (int i : list) {
             System.out.println(i);
+        }
+        System.out.println();
+
+        MyLinkedList<String> str = new MyLinkedList<String>();
+        str.add("Hello");
+        str.add("World");
+        str.add("!");
+        str.add("World");
+        str.add("Hello");
+        str.add("?");
+        for (String s : str)
+            System.out.println(s);
     }
 }
