@@ -1,0 +1,37 @@
+GOAL: How to make fat stacks...
+
+
+--------------------------------
+| bar:                         | // placed on top of foo
+| A, B, x, etc                 | // removed when finished
+--------------------------------
+--------------------------------
+| foo:                         | // placed on top of main
+| A, B, x, etc                 | // removed when finished
+--------------------------------
+--------------------------------
+| main:                        | // first to get placed on the stack
+| int x, int[] k, etc          |
+--------------------------------
+stack
+  |
+  v
+heap - contains the values that the stack methods refer to
+
+
+Stack:
+    - LIFO (Last In, First Out)
+
+    s.push(5);      // adds 5 to the end of the stack, {5}
+    s.push(3);      // adds 3 to the end of the stack, {5,3}
+    s.push(2);      // adds 2 to the end of the stack, {5,3,2}
+    s.push(-1);     // adds -1 to the end of the stack, {5,3,2,-1}
+    print(s.pop()); // removes and returns the last element
+                    // {5,3,2} ; output: -1
+    peek();         // returns but does not remove the last element
+                    // {5,3,2} ; output: 2
+
+- Amortized efficiency aka average
+
+- if you use a LinkedList, push is O(1), pop is O(1)
+- if you use a dynamic array, average push is O(1), pop is O(1)
