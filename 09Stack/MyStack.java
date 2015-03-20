@@ -52,8 +52,13 @@ public class MyStack<T> {
         System.out.println( "Push: " + s.push("hello") );
         System.out.println( "Push: " + s.push("world") );
         System.out.println( "Push: " + s.push("!") );
+        System.out.println( "Search \"hello\": " + s.search("hello") );
+        System.out.println( "Search \"!\": " + s.search("!") );
+        System.out.println( "Search \"hola\": " + s.search("hola") );
         System.out.println( "Peek: " + s.peek() );
         System.out.println( "Pop: " + s.pop() );
+        System.out.println( "Search \"hello\": " + s.search("hello") );
+        System.out.println( "Search \"world\": " + s.search("world") );
         System.out.println( "Peek: " + s.peek() );
         System.out.println( "Empty: " + s.empty() );
         System.out.println( "Pop: " + s.pop() );
