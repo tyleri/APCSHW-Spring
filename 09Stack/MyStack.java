@@ -33,6 +33,18 @@ public class MyStack<T> {
         return head.getData();
     }
 
+    public int search(Object o) {
+        LNode<T> ln = head;
+        int loc = 1;
+
+        while (ln != null) {
+            if ( ln.getData().equals(o) )
+                return loc;
+            loc++;
+        }
+        return -1;
+    }
+
     public static void main(String[] args) {
         MyStack<String> s = new MyStack<String>();
 
