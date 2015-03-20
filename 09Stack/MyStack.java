@@ -41,6 +41,7 @@ public class MyStack<T> {
             if ( ln.getData().equals(o) )
                 return loc;
             loc++;
+            ln = ln.getNext();
         }
         return -1;
     }
