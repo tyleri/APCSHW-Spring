@@ -32,4 +32,20 @@ public class MyStack<T> {
 
         return head.getData();
     }
+
+    public static void main(String[] args) {
+        MyStack<String> s = new MyStack<String>();
+
+        System.out.println( "Push: " + s.push("hello") );
+        System.out.println( "Push: " + s.push("world") );
+        System.out.println( "Push: " + s.push("!") );
+        System.out.println( "Peek: " + s.peek() );
+        System.out.println( "Pop: " + s.pop() );
+        System.out.println( "Peek: " + s.peek() );
+        System.out.println( "Empty: " + s.empty() );
+        System.out.println( "Pop: " + s.pop() );
+        System.out.println( "Empty: " + s.empty() );
+        System.out.println( "Pop: " + s.pop() );
+        System.out.println( "Empty: " + s.empty() );
+    }
 }
