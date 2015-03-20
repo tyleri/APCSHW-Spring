@@ -26,4 +26,10 @@ public class MyStack<T> {
         return item;
     }
 
+    public T peek() {
+        if (head == null)
+            throw new EmptyStackException();
+
+        return head.getData();
+    }
 }
