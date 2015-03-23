@@ -2,7 +2,7 @@ import java.util.EmptyStackException;
 
 public class MyStack<T> {
 
-    MyLinkedList mll;
+    MyLinkedList<T> mll;
 
     public MyStack() {
         mll = new MyLinkedList<T>();
@@ -31,16 +31,7 @@ public class MyStack<T> {
     }
 
     public int search(Object o) {
-        LNode<T> ln = head;
-        int loc = 1;
-
-        while (ln != null) {
-            if ( ln.getData().equals(o) )
-                return loc;
-            loc++;
-            ln = ln.getNext();
-        }
-        return -1;
+        return mll.indexOf((T)o);
     }
 
     public static void main(String[] args) {
