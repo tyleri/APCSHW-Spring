@@ -9,7 +9,7 @@ public class MyStack<T> {
     }
     
     public boolean empty() {
-        return head == null;
+        return mll.isEmpty();
     }
 
     public T push(T item) {
