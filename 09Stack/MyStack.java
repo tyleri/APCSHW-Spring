@@ -2,7 +2,11 @@ import java.util.EmptyStackException;
 
 public class MyStack<T> {
 
-    LNode<T> head;
+    MyLinkedList mll;
+
+    public MyStack() {
+        mll = new MyLinkedList<T>();
+    }
     
     public boolean empty() {
         return head == null;
