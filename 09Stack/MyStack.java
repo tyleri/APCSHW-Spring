@@ -13,11 +13,7 @@ public class MyStack<T> {
     }
 
     public T push(T item) {
-        LNode<T> ln = new LNode<T>(item);
-        if (head != null)
-            ln.setNext(head);
-
-        head = ln;
+        mll.add(0, item);
         return item;
     }
 
