@@ -24,10 +24,10 @@ public class MyStack<T> {
     }
 
     public T peek() {
-        if (head == null)
+        if (empty())
             throw new EmptyStackException();
 
-        return head.getData();
+        return mll.get(0);
     }
 
     public int search(Object o) {
