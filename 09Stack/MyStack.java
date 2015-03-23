@@ -18,12 +18,9 @@ public class MyStack<T> {
     }
 
     public T pop() {
-        if (head == null)
+        if (empty())
             throw new EmptyStackException();
-
-        T item = head.getData();
-        head = head.getNext();
-        return item;
+        return mll.remove();
     }
 
     public T peek() {
