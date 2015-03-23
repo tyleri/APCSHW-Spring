@@ -92,6 +92,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         else if (index == 0) {
             n.setNext(head);
             head = n;
+            size++;
         } else {
             LNode<T> curr = head;
 
@@ -100,8 +101,8 @@ public class MyLinkedList<T> implements Iterable<T> {
 
             n.setNext( curr.getNext() );
             curr.setNext(n);
+            size++;
         }
-        size++;
     }
 
     public int indexOf(T value) {
