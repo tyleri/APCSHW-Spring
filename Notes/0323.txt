@@ -1,0 +1,15 @@
+GOAL: Queues aren't just for fake terry's
+
+LIFO -> Stack
+FIFO -> Queue
+
+enqueue(n) // add
+dequeue()  // remove, from beginning for constant time
+
+In Java, the built-in queue has add and remove instead
+
+Stack & Queue -> instance var or extend myLL
+
+09:
+ - MyStack.java
+ - MyQueue.java
