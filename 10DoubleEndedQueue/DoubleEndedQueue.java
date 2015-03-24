@@ -10,4 +10,8 @@ public class DoubleEndedQueue {
         head = tail = arr.length / 2;
     }
 
+    public int size() {
+        return size;
+    }
+
 }
