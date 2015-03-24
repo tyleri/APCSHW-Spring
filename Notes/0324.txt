@@ -1,0 +1,6 @@
+GOAL: Stacks + Queues... implementation
+
+Double Ended Queue - can remove from front and back
+If arrays are used, it's more efficient
+
+Priority Queue - higher priority jobs get dealt with first
