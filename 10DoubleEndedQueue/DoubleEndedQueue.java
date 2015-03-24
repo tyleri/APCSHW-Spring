@@ -5,5 +5,9 @@ public class DoubleEndedQueue {
     int tail;
     int size;
 
+    public DoubleEndedQueue() {
+        arr = new Object[100];
+        head = tail = arr.length / 2;
+    }
 
 }
