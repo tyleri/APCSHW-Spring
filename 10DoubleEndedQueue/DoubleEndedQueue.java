@@ -15,10 +15,21 @@ public class DoubleEndedQueue<T> {
         return size;
     }
 
-    public boolean add(T element) {
+    public boolean add(T item) {
         tail++;
-        arr[tail] = element;
+        arr[tail] = item;
+        size++;
         return true;
+    }
+
+    public void addFirst(T item) {
+        head--;
+        arr[head] = item;
+        size++;
+    }
+
+    public void addLast(T item) {
+        add(item);
     }
 
 }
