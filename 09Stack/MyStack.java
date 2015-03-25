@@ -30,8 +30,8 @@ public class MyStack<T> {
         return mll.get(0);
     }
 
-    public int search(Object o) {
-        return mll.indexOf((T)o);
+    public int search(T o) {
+        return mll.indexOf(o);
     }
 
     public static void main(String[] args) {
