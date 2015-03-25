@@ -6,7 +6,7 @@ public class MyDeque<T> {
     int size;
 
     public MyDeque() {
-        arr = new Object[100];
+        arr = new Object[5];
         head = tail = arr.length / 2;
         tail--;
     }
@@ -48,5 +48,27 @@ public class MyDeque<T> {
         arr = newArr;
     }
 
+    public String toString() {
+        String s = "[";
+        for (int i = head; i != tail; i++) {
+            if (i >= arr.length)
+                i = 0;
+            s += arr[i] + " ";
+        }
+        s += arr[tail] + "]";
+        return s;
+    }
+
+    public static void main(String[] args) {
+        MyDeque<Integer> d = new MyDeque<Integer>();
+        d.addFirst(5);
+        d.addFirst(3);
+        d.addFirst(2);
+        d.addFirst(8);
+        d.addLast(10);
+        d.addFirst(100);
+        System.out.println(d);
+        System.out.println(d.size());
+    }
 
 }
