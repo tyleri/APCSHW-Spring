@@ -1,11 +1,11 @@
-public class DoubleEndedQueue<T> {
+public class MyDeque<T> {
 
     Object[] arr;
     int head;
     int tail;
     int size;
 
-    public DoubleEndedQueue() {
+    public MyDeque() {
         arr = new Object[100];
         head = tail = arr.length / 2;
         tail--;
