@@ -15,13 +15,6 @@ public class MyDeque<T> {
         return size;
     }
 
-    public boolean add(T item) {
-        tail++;
-        arr[tail] = item;
-        size++;
-        return true;
-    }
-
     public void addFirst(T item) {
         head--;
         arr[head] = item;
@@ -29,7 +22,9 @@ public class MyDeque<T> {
     }
 
     public void addLast(T item) {
-        add(item);
+        tail++;
+        arr[tail] = item;
+        size++;
     }
 
 }
