@@ -26,7 +26,11 @@ public class MyDeque<T> {
     }
 
     public void addLast(T item) {
+        if (head == tail+1 || (head == 0 && tail == arr.length-1) )
+            resize();
         tail++;
+        if (tail >= arr.length)
+            tail = 0;
         arr[tail] = item;
         size++;
     }
