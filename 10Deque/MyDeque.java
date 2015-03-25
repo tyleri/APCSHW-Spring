@@ -16,7 +16,11 @@ public class MyDeque<T> {
     }
 
     public void addFirst(T item) {
+        if (head == tail+1 || (head == 0 && tail == arr.length-1) )
+            resize();
         head--;
+        if (head < 0)
+            head = arr.length - 1;
         arr[head] = item;
         size++;
     }
@@ -26,5 +30,6 @@ public class MyDeque<T> {
         arr[tail] = item;
         size++;
     }
+
 
 }
