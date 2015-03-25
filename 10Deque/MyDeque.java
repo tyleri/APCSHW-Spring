@@ -35,5 +35,18 @@ public class MyDeque<T> {
         size++;
     }
 
+    private void resize() {
+        int newIndex = arr.length / 2, oldIndex = head;
+        Object[] newArr = new Object[arr.length * 2];
+        for (int i = 0; i < arr.length; i++) {
+            newArr[newIndex] = arr[oldIndex];
+            oldIndex++;
+            newIndex++;
+            if (oldIndex >= arr.length)
+                oldIndex = 0;
+        }
+        arr = newArr;
+    }
+
 
 }
