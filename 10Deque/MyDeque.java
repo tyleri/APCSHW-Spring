@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MyDeque<T> {
 
     Object[] arr;
@@ -48,6 +50,18 @@ public class MyDeque<T> {
         arr = newArr;
     }
 
+    public T removeFirst() {
+        if (arr[head] == null)
+            throw new NoSuchElementException();
+        T item = (T)arr[head];
+        arr[head] = null;
+        head++;
+        if (head >= arr.length)
+            head = 0;
+        size--;
+        return item;
+    }
+
     public String toString() {
         String s = "[";
         for (int i = head; i != tail; i++) {
@@ -67,6 +81,8 @@ public class MyDeque<T> {
         d.addFirst(8);
         d.addLast(10);
         d.addFirst(100);
+        System.out.println(d);
+        System.out.println( d.removeFirst() );
         System.out.println(d);
         System.out.println(d.size());
     }
