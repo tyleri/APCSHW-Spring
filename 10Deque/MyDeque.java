@@ -62,6 +62,18 @@ public class MyDeque<T> {
         return item;
     }
 
+    public T removeLast() {
+        if (arr[tail] == null)
+            throw new NoSuchElementException();
+        T item = (T)arr[tail];
+        arr[tail] = null;
+        tail--;
+        if (tail < 0)
+            tail = arr.length-1;
+        size--;
+        return item;
+    }
+
     public String toString() {
         String s = "[";
         for (int i = head; i != tail; i++) {
@@ -76,14 +88,17 @@ public class MyDeque<T> {
     public static void main(String[] args) {
         MyDeque<Integer> d = new MyDeque<Integer>();
         d.addFirst(5);
-        d.addFirst(3);
-        d.addFirst(2);
-        d.addFirst(8);
+        d.addLast(3);
+        d.addLast(2);
+        d.addLast(8);
         d.addLast(10);
-        d.addFirst(100);
+        d.addLast(100);
         System.out.println(d);
-        System.out.println( d.removeFirst() );
-        System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println( d.removeLast() );
+        System.out.println( d.removeLast() );
+        System.out.println( d.removeLast() );
+        System.out.println( d.removeLast() );
         System.out.println(d.size());
     }
 
