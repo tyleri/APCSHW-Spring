@@ -50,6 +50,7 @@ public class MyDeque<T> {
         arr = newArr;
     }
 
+    @SuppressWarnings("unchecked")
     public T removeFirst() {
         if (arr[head] == null)
             throw new NoSuchElementException();
@@ -62,6 +63,7 @@ public class MyDeque<T> {
         return item;
     }
 
+    @SuppressWarnings("unchecked")
     public T removeLast() {
         if (arr[tail] == null)
             throw new NoSuchElementException();
@@ -74,12 +76,14 @@ public class MyDeque<T> {
         return item;
     }
 
+    @SuppressWarnings("unchecked")
     public T getFirst() {
         if (arr[head] == null)
             throw new NoSuchElementException();
         return (T) arr[head];
     }
 
+    @SuppressWarnings("unchecked")
     public T getLast() {
         if (arr[tail] == null)
             throw new NoSuchElementException();
