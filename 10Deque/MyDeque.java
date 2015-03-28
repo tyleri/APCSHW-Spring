@@ -10,7 +10,6 @@ public class MyDeque<T> {
     public MyDeque() {
         arr = new Object[5];
         head = tail = arr.length / 2;
-        tail--;
     }
 
     public int size() {
@@ -20,7 +19,8 @@ public class MyDeque<T> {
     public void addFirst(T item) {
         if (head == tail+1 || (head == 0 && tail == arr.length-1) )
             resize();
-        head--;
+        if (arr[head] != null)
+            head--;
         if (head < 0)
             head = arr.length - 1;
         arr[head] = item;
@@ -30,7 +30,8 @@ public class MyDeque<T> {
     public void addLast(T item) {
         if (head == tail+1 || (head == 0 && tail == arr.length-1) )
             resize();
-        tail++;
+        if (arr[tail] != null)
+            tail++;
         if (tail >= arr.length)
             tail = 0;
         arr[tail] = item;
@@ -40,13 +41,14 @@ public class MyDeque<T> {
     private void resize() {
         int newIndex = arr.length / 2, oldIndex = head;
         Object[] newArr = new Object[arr.length * 2];
-        for (int i = 0; i < arr.length; i++) {
-            newArr[newIndex] = arr[oldIndex];
-            oldIndex++;
-            newIndex++;
-            if (oldIndex >= arr.length)
-                oldIndex = 0;
+        if (tail > head)
+            System.arraycopy(arr, 0, newArr, arr.length/2, arr.length);
+        else {
+            System.arraycopy(arr, head, newArr, arr.length/2, arr.length - head);
+            System.arraycopy(arr, 0, newArr, arr.length*3/2 - head, head);
         }
+        head = arr.length/2;
+        tail = head + arr.length-1;
         arr = newArr;
     }
 
@@ -91,6 +93,7 @@ public class MyDeque<T> {
     }
 
     public String toString() {
+        /*
         String s = "[";
         for (int i = head; i != tail; i++) {
             if (i >= arr.length)
@@ -99,31 +102,44 @@ public class MyDeque<T> {
         }
         s += arr[tail] + "]";
         return s;
+        */
+        return Arrays.toString(arr);
     }
 
     public static void main(String[] args) {
         MyDeque<Integer> d = new MyDeque<Integer>();
         d.addFirst(5);
-        System.out.println(d.getLast());
+        System.out.println(d);
         d.addFirst(3);
-        System.out.println(d.getLast());
+        System.out.println(d);
         d.addFirst(2);
+        System.out.println(d);
         d.addLast(8);
-        System.out.println(d.getLast());
+        System.out.println(d);
         d.addLast(10);
+        System.out.println(d);
         d.addLast(100);
         System.out.println(d);
-        System.out.println(d.getLast());
+        d.addLast(101);
+        System.out.println(d);
+        d.addLast(102);
+        System.out.println(d);
+        d.addLast(103);
+        System.out.println(d);
+        d.addLast(104);
+        System.out.println(d);
+        d.addLast(105);
+        System.out.println(d);
         System.out.println( d.removeLast() );
-        System.out.println(d.getLast());
+        System.out.println(d);
         System.out.println( d.removeLast() );
-        System.out.println(d.getLast());
+        System.out.println(d);
         System.out.println( d.removeLast() );
-        System.out.println(d.getLast());
+        System.out.println(d);
         System.out.println( d.removeLast() );
-        System.out.println(d.getLast());
+        System.out.println(d);
         System.out.println( d.removeLast() );
-        System.out.println(d.getLast());
+        System.out.println(d);
         System.out.println(d.size());
     }
 
