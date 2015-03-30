@@ -1,0 +1,9 @@
+GOAL: BFS
+
+Depth vs. Breadth
+
+depth: go down a path until there are no more
+       options then backtrack
+
+breadth: checks the nodes starting with the
+         ones that are closest
