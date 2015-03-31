@@ -1,14 +1,18 @@
+import java.util.Scanner;
+import java.io.File;
+
 public class Maze {
 
     private char[][]maze;
     private int maxx,maxy;
     private int startx,starty;
+
     //Terminal keycodes to clear the terminal, or hide/show the cursor
     private String clear =  "\033[2J";
     private String hide =  "\033[?25l";
     private String show =  "\033[?25h";
 
-    public Mazesolver(String filename){
+    public Maze(String filename){
         startx = -1;
         starty = -1;
         //read the whole maze into a single string first
@@ -66,6 +70,10 @@ public class Maze {
         }
         catch (InterruptedException e) {
         }
+    }
+
+    public void solveBFS(int mode) {
+        
     }
 
 }
