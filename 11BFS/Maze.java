@@ -7,10 +7,16 @@ public class Maze {
     private int maxx,maxy;
     private int startx,starty;
     
-    private class Trail {
-        int x;
-        int y;
-        MyDeque<Integer> path;
+    private class Node {
+
+        private int x;
+        private int y;
+        private Node prev;
+
+        public Node(int xcor, int ycor) {
+            x = xcor;
+            y = ycor;
+        }
 
         public int getX() {
             return x;
@@ -20,14 +26,14 @@ public class Maze {
             return y;
         }
 
-        public void push(int x, int y) {
-            path.addLast(x);
-            path.addLast(y);
+        public Node getPrev() {
+            return prev;
         }
 
-        public String pop() {
-            return "(" + path.removeFirst() + "," + path.removeFirst() + ")";
+        public void setPrev(Node prev) {
+            this.prev = prev;
         }
+
     }
 
     //Terminal keycodes to clear the terminal, or hide/show the cursor
