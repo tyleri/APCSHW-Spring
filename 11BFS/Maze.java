@@ -95,8 +95,20 @@ public class Maze {
         }
     }
 
-    public void solveBFS(int mode) {
-        
+    public boolean solveBFS() {
+        return solveBFS(false);
+    }
+
+    public boolean solveDFS() {
+        return solveDFS(false);
+    }
+
+    public boolean solveBFS(boolean animate) {
+        return false;
+    }
+
+    public boolean solveDFS(boolean animate) {
+        return false;
     }
 
     public String toString() {
@@ -109,4 +121,17 @@ public class Maze {
         return s;
     }
 
+    public String toString(boolean animate) {
+        return "";
+    }
+
+    /**return an array [x1,y1,x2,y2,x3,y3...]
+      *that contains the coordinates of the solution from start to end.
+      *Precondition :  solveBFS() OR solveDFS() has already been called
+      *(otherwise an empty array is returned)
+      *Postcondition:  the correct solution is in the returned array
+      */
+    public int[] solutionCoordinates() {
+        return new int[0];
+    }    
 }
