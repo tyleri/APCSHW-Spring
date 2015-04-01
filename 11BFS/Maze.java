@@ -99,4 +99,14 @@ public class Maze {
         
     }
 
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < maze.length; i++) {
+            for (int j = 0; j < maze[i].length; j++)
+                s += maze[i][j] + " ";
+            s += '\n';
+        }
+        return s;
+    }
+
 }
