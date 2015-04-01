@@ -6,6 +6,29 @@ public class Maze {
     private char[][]maze;
     private int maxx,maxy;
     private int startx,starty;
+    
+    private class Trail {
+        int x;
+        int y;
+        MyDeque<Integer> path;
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void push(int x, int y) {
+            path.addLast(x);
+            path.addLast(y);
+        }
+
+        public String pop() {
+            return "(" + path.removeFirst() + "," + path.removeFirst() + ")";
+        }
+    }
 
     //Terminal keycodes to clear the terminal, or hide/show the cursor
     private String clear =  "\033[2J";
