@@ -7,6 +7,9 @@ public class Maze {
     private int maxx,maxy;
     private int startx,starty;
     private MyDeque<Node> frontier;
+
+    private int DFS_MODE = 0;
+    private int BFS_MODE = 1;
     
     private class Node {
 
@@ -110,12 +113,16 @@ public class Maze {
         return solveDFS(false);
     }
 
-    public boolean solveBFS(boolean animate) {
+    private boolean solve(int mode, boolean animate) {
         return false;
     }
 
+    public boolean solveBFS(boolean animate) {
+        return solve(BFS_MODE, animate);
+    }
+
     public boolean solveDFS(boolean animate) {
-        return false;
+        return solve(DFS_MODE, animate);
     }
 
     public String toString() {
