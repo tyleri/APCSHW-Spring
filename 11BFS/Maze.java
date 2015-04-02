@@ -72,13 +72,13 @@ public class Maze {
         }
 
         //copy from the single string to a 2D array
-        maze = new char[maxx][maxy];
+        maze = new char[maxy][maxx];
         for(int i = 0; i < ans.length(); i++){
             char c = ans.charAt(i);
-            maze[i % maxx][i / maxx] = c;
+            maze[i / maxx][i % maxx] = c;
             if(c == 'S'){
-                startx = i % maxx;
-                starty = i / maxx;
+                startx = i / maxx;
+                starty = i % maxx;
             }
         }
     }
@@ -114,6 +114,7 @@ public class Maze {
     }
 
     private boolean solve(int mode, boolean animate) {
+        frontier.addFirst( new Node(startx, starty) );
         return false;
     }
 
@@ -129,7 +130,7 @@ public class Maze {
         String s = "";
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze[i].length; j++)
-                s += maze[i][j] + " ";
+                s += maze[i][j];
             s += '\n';
         }
         return s;
@@ -148,4 +149,9 @@ public class Maze {
     public int[] solutionCoordinates() {
         return new int[0];
     }    
+
+    public static void main(String[] args) {
+        Maze m = new Maze("data1.dat");
+        System.out.println(m);
+    }
 }
