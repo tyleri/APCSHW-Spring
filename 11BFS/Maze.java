@@ -6,6 +6,7 @@ public class Maze {
     private char[][]maze;
     private int maxx,maxy;
     private int startx,starty;
+    private MyDeque<Node> frontier;
     
     private class Node {
 
