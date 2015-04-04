@@ -7,9 +7,6 @@ public class Maze {
     private int maxx,maxy;
     private int startx,starty;
     private MyDeque<Node> frontier;
-
-    private int DFS_MODE = 0;
-    private int BFS_MODE = 1;
     
     private class Node {
 
@@ -113,13 +110,16 @@ public class Maze {
         return solveDFS(false);
     }
 
-    private boolean solve(int mode, boolean animate) {
-        frontier.addFirst( new Node(startx, starty) );
-        return false;
-    }
-
     public boolean solveBFS(boolean animate) {
-        return solve(BFS_MODE, animate);
+        frontier.addFirst( new Node(startx, starty) );
+        int currx = startx, curry = starty;
+
+        while ( maze[currx][curry] != 'E' && frontier.size() != 0 ) {
+            if ( maze[currx+1][curry] != '#' ) {
+                frontier.add
+            }
+        }
+        return false;
     }
 
     public boolean solveDFS(boolean animate) {
