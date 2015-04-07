@@ -130,43 +130,46 @@ public class Maze {
         int currx = startx, curry = starty;
         Node n = new Node(currx, curry, null);
         
-        // copy maze over so I can modify this without worrying
+        // copy maze over so I can modify it without worrying
         char[][] mazeCopy = new char[maxy][maxx];
         for (int i = 0; i < maxy; i++)
             for (int j = 0; j < maxx; j++)
                 mazeCopy[i][j] = maze[i][j];
 
         do {
+            // mark the spaces already passed
+            if (maze[curry][currx] != 'S')
+                maze[curry][currx] = 'x';
+
             // animate the solve if animate == true
-            if (animate && maze[curry][currx] != 'S') {
-                maze[curry][currx] = '@';
+            if (animate) {
                 System.out.println( toString(true) );
                 wait(20);
             }
 
             // check bottom space
-            if ( maze[curry+1][currx] != '#' && maze[curry+1][currx] != '@' ) {
+            if ( maze[curry+1][currx] != '#' && maze[curry+1][currx] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx, curry+1, n) );
                 else
                     frontier.addFirst( new Node(currx, curry+1, n) );
             }
             // check top space
-            if ( maze[curry-1][currx] != '#' && maze[curry-1][currx] != '@' ) {
+            if ( maze[curry-1][currx] != '#' && maze[curry-1][currx] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx, curry-1, n) );
                 else
                     frontier.addFirst( new Node(currx, curry-1, n) );
             }
             // check right space
-            if ( maze[curry][currx+1] != '#' && maze[curry][currx+1] != '@' ) {
+            if ( maze[curry][currx+1] != '#' && maze[curry][currx+1] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx+1, curry, n) );
                 else
                     frontier.addFirst( new Node(currx+1, curry, n) );
             }
             // check left space
-            if ( maze[curry][currx-1] != '#' && maze[curry][currx-1] != '@' ) {
+            if ( maze[curry][currx-1] != '#' && maze[curry][currx-1] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx-1, curry, n) );
                 else
@@ -190,11 +193,11 @@ public class Maze {
         exitPath.addFirst( n.getY() );
         exitPath.addFirst( n.getX() );
         n = n.getPrev();
-        // add each step to exitPath and place an '@' there
+        // add each step to exitPath and place an 'x' there
         while ( n.getPrev() != null ) {
             exitPath.addFirst( n.getY() );
             exitPath.addFirst( n.getX() );
-            mazeCopy[n.getY()][n.getX()] = '@';
+            mazeCopy[n.getY()][n.getX()] = 'x';
             n = n.getPrev();
         }
         // add start to exitPath
@@ -234,7 +237,7 @@ public class Maze {
         Maze m = new Maze("data3.dat");
         System.out.println(m);
         System.out.println();
-        System.out.println( m.solveDFS(true) );
+        System.out.println( m.solveDFS() );
         System.out.println(m);
     }
 }
