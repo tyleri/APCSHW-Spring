@@ -8,7 +8,7 @@ public class MyDeque<T> {
     int size;
 
     public MyDeque() {
-        arr = new Object[5];
+        arr = new Object[100];
         head = tail = arr.length / 2;
     }
 
@@ -58,7 +58,8 @@ public class MyDeque<T> {
             throw new NoSuchElementException();
         T item = (T)arr[head];
         arr[head] = null;
-        head++;
+        if (head != tail)
+            head++;
         if (head >= arr.length)
             head = 0;
         size--;
@@ -71,7 +72,8 @@ public class MyDeque<T> {
             throw new NoSuchElementException();
         T item = (T)arr[tail];
         arr[tail] = null;
-        tail--;
+        if (head != tail)
+            tail--;
         if (tail < 0)
             tail = arr.length-1;
         size--;
@@ -140,6 +142,32 @@ public class MyDeque<T> {
         System.out.println(d);
         System.out.println( d.removeLast() );
         System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println(d);
+        System.out.println( d.removeLast() );
+        System.out.println(d);
+        System.out.println( d.removeLast() );
+        d.addLast(100);
+        System.out.println(d);
+        d.removeFirst();
+        System.out.println(d);
+        d.addLast(1);
+        System.out.println(d);
+        d.removeFirst();
+        System.out.println(d);
+        d.addLast(5);
+        System.out.println(d);
+        d.addLast(3);
+        System.out.println(d);
+        d.removeFirst();
+        System.out.println(d);
+        d.removeFirst();
         System.out.println(d.size());
     }
 
