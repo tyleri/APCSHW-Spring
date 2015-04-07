@@ -7,7 +7,7 @@ public class Maze {
     private int maxx,maxy;
     private int startx,starty;
     private MyDeque<Node> frontier;
-    private MyDeque<Integer> exitPath;
+    private int[] solution;
     private int BFS = 0;
     private int DFS = 1;
     
@@ -49,7 +49,7 @@ public class Maze {
     public Maze(String filename){
         // instantiate variables
         frontier = new MyDeque<Node>();
-        exitPath = new MyDeque<Integer>();
+        solution = new int[0];
         
         startx = -1;
         starty = -1;
@@ -189,6 +189,7 @@ public class Maze {
 
         } while ( maze[curry][currx] != 'E' );
 
+        MyDeque<Integer> exitPath = new MyDeque<Integer>();
         // add exit to exitPath
         exitPath.addFirst( n.getY() );
         exitPath.addFirst( n.getX() );
@@ -203,6 +204,14 @@ public class Maze {
         // add start to exitPath
         exitPath.addFirst( n.getY() );
         exitPath.addFirst( n.getX() );
+
+        // copy coordinates to solution array
+        solution = new int[ exitPath.size() ];
+        int i = 0;
+        while (exitPath.size() > 0) {
+            solution[i] = exitPath.removeFirst();
+            i++;
+        }
 
         maze = mazeCopy;
 
@@ -230,11 +239,11 @@ public class Maze {
       *Postcondition:  the correct solution is in the returned array
       */
     public int[] solutionCoordinates() {
-        return new int[0];
+        return solution;
     }    
 
     public static void main(String[] args) {
-        Maze m = new Maze("data3.dat");
+        Maze m = new Maze("data1.dat");
         System.out.println(m);
         System.out.println();
         System.out.println( m.solveDFS() );
