@@ -80,8 +80,8 @@ public class Maze {
             char c = ans.charAt(i);
             maze[i / maxx][i % maxx] = c;
             if(c == 'S'){
-                startx = i / maxx;
-                starty = i % maxx;
+                startx = i % maxx;
+                starty = i / maxx;
             }
         }
     }
@@ -174,7 +174,61 @@ public class Maze {
     }
 
     public boolean solveDFS(boolean animate) {
-        return false;
+        int currx = startx, curry = starty;
+        Node n = new Node(currx, curry, null);
+        
+        // copy maze over so I can modify this without worrying
+        char[][] testMaze = new char[maxy][maxx];
+        for (int i = 0; i < maxy; i++)
+            for (int j = 0; j < maxx; j++)
+                testMaze[i][j] = maze[i][j];
+
+        do {
+            // place a wall at the current space
+            // prevents checking the same space twice
+            testMaze[curry][currx] = '#';
+
+            // check bottom space
+            if ( testMaze[curry+1][currx] != '#' )
+                frontier.addFirst( new Node(currx, curry+1, n) );
+            // check top space
+            if ( testMaze[curry-1][currx] != '#' )
+                frontier.addFirst( new Node(currx, curry-1, n) );
+            // check right space
+            if ( testMaze[curry][currx+1] != '#' )
+                frontier.addFirst( new Node(currx+1, curry, n) );
+            // check left space
+            if ( testMaze[curry][currx-1] != '#' )
+                frontier.addFirst( new Node(currx-1, curry, n) );
+
+            // if there's nowhere else to go, there's no exit path
+            if ( frontier.size() == 0 )
+                return false;
+
+            // get the next space to check
+            n = frontier.removeFirst();
+            currx = n.getX();
+            curry = n.getY();
+            
+
+        } while ( testMaze[curry][currx] != 'E' );
+
+        // add exit to exitPath
+        exitPath.addFirst( n.getY() );
+        exitPath.addFirst( n.getX() );
+        n = n.getPrev();
+        // add each step to exitPath and place an '@' there
+        while ( n.getPrev() != null ) {
+            exitPath.addFirst( n.getY() );
+            exitPath.addFirst( n.getX() );
+            maze[n.getY()][n.getX()] = '@';
+            n = n.getPrev();
+        }
+        // add start to exitPath
+        exitPath.addFirst( n.getY() );
+        exitPath.addFirst( n.getX() );
+
+        return true;
     }
 
     public String toString() {
@@ -202,10 +256,10 @@ public class Maze {
     }    
 
     public static void main(String[] args) {
-        Maze m = new Maze("data1.dat");
+        Maze m = new Maze("data2.dat");
         System.out.println(m);
         System.out.println();
-        m.solveBFS();
+        System.out.println( m.solveBFS() );
         System.out.println(m);
     }
 }
