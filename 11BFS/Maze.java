@@ -121,27 +121,34 @@ public class Maze {
         Node n = new Node(currx, curry, null);
         
         // copy maze over so I can modify this without worrying
-        char[][] testMaze = new char[maxy][maxx];
+        char[][] mazeCopy = new char[maxy][maxx];
         for (int i = 0; i < maxy; i++)
             for (int j = 0; j < maxx; j++)
-                testMaze[i][j] = maze[i][j];
+                mazeCopy[i][j] = maze[i][j];
 
         do {
             // place a wall at the current space
             // prevents checking the same space twice
-            testMaze[curry][currx] = '#';
+            maze[curry][currx] = '#';
+
+            // animate the solve if animate == true
+            if (animate && maze[curry][currx] != 'S') {
+                maze[curry][currx] = '@';
+                System.out.println( toString(true) );
+                wait(20);
+            }
 
             // check bottom space
-            if ( testMaze[curry+1][currx] != '#' )
+            if ( maze[curry+1][currx] != '#' && maze[curry+1][currx] != '@' )
                 frontier.addLast( new Node(currx, curry+1, n) );
             // check top space
-            if ( testMaze[curry-1][currx] != '#' )
+            if ( maze[curry-1][currx] != '#' && maze[curry-1][currx] != '@' )
                 frontier.addLast( new Node(currx, curry-1, n) );
             // check right space
-            if ( testMaze[curry][currx+1] != '#' )
+            if ( maze[curry][currx+1] != '#' && maze[curry][currx+1] != '@' )
                 frontier.addLast( new Node(currx+1, curry, n) );
             // check left space
-            if ( testMaze[curry][currx-1] != '#' )
+            if ( maze[curry][currx-1] != '#' && maze[curry][currx-1] != '@' )
                 frontier.addLast( new Node(currx-1, curry, n) );
 
             // if there's nowhere else to go, there's no exit path
@@ -153,7 +160,7 @@ public class Maze {
             currx = n.getX();
             curry = n.getY();
 
-        } while ( testMaze[curry][currx] != 'E' );
+        } while ( maze[curry][currx] != 'E' );
 
         // add exit to exitPath
         exitPath.addFirst( n.getY() );
@@ -163,12 +170,14 @@ public class Maze {
         while ( n.getPrev() != null ) {
             exitPath.addFirst( n.getY() );
             exitPath.addFirst( n.getX() );
-            maze[n.getY()][n.getX()] = '@';
+            mazeCopy[n.getY()][n.getX()] = '@';
             n = n.getPrev();
         }
         // add start to exitPath
         exitPath.addFirst( n.getY() );
         exitPath.addFirst( n.getX() );
+
+        maze = mazeCopy;
 
         return true;
     }
@@ -242,7 +251,7 @@ public class Maze {
     }
 
     public String toString(boolean animate) {
-        return "";
+        return hide + go(0,0) + toString() + "\n" + show + color(37,40);
     }
 
     /**return an array [x1,y1,x2,y2,x3,y3...]
@@ -256,10 +265,10 @@ public class Maze {
     }    
 
     public static void main(String[] args) {
-        Maze m = new Maze("data2.dat");
+        Maze m = new Maze("data1.dat");
         System.out.println(m);
         System.out.println();
-        System.out.println( m.solveBFS() );
+        System.out.println( m.solveBFS(true) );
         System.out.println(m);
     }
 }
