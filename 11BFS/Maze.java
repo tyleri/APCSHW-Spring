@@ -1,3 +1,11 @@
+// Attribution/Disclaimer:
+//
+// The constructor, test *.dat files,
+// and code to print out the maze
+// animatedly with the special
+// characters were imported
+// from Mr. K's MazeSolver files.
+
 import java.util.Scanner;
 import java.io.File;
 
