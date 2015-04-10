@@ -10,7 +10,7 @@ public class Maze {
     private int[] solution;
     private int BFS = 0;
     private int DFS = 1;
-    
+
     private class Node {
 
         private int x;
@@ -50,7 +50,7 @@ public class Maze {
         // instantiate variables
         frontier = new MyDeque<Node>();
         solution = new int[0];
-        
+
         startx = -1;
         starty = -1;
         //read the whole maze into a single string first
@@ -129,7 +129,7 @@ public class Maze {
     private boolean solve(int mode, boolean animate) {
         int currx = startx, curry = starty;
         Node n = new Node(currx, curry, null);
-        
+
         // copy maze over so I can modify it without worrying
         char[][] mazeCopy = new char[maxy][maxx];
         for (int i = 0; i < maxy; i++)
@@ -229,15 +229,17 @@ public class Maze {
     }
 
     public String toString(boolean animate) {
+        if (!animate)
+            return toString();
         return hide + go(0,0) + toString() + "\n" + show + color(37,40);
     }
 
     /**return an array [x1,y1,x2,y2,x3,y3...]
-      *that contains the coordinates of the solution from start to end.
-      *Precondition :  solveBFS() OR solveDFS() has already been called
-      *(otherwise an empty array is returned)
-      *Postcondition:  the correct solution is in the returned array
-      */
+     *that contains the coordinates of the solution from start to end.
+     *Precondition :  solveBFS() OR solveDFS() has already been called
+     *(otherwise an empty array is returned)
+     *Postcondition:  the correct solution is in the returned array
+     */
     public int[] solutionCoordinates() {
         return solution;
     }    
