@@ -8,7 +8,7 @@ public class MyDeque<T> {
     int size;
 
     public MyDeque() {
-        arr = new Object[100];
+        arr = new Object[15];
         head = tail = arr.length / 2;
     }
 
