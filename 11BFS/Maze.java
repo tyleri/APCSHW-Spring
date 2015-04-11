@@ -43,10 +43,6 @@ public class Maze {
             return prev;
         }
 
-        public void setPrev(Node prev) {
-            this.prev = prev;
-        }
-
     }
 
     //Terminal keycodes to clear the terminal, or hide/show the cursor
