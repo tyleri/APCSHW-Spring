@@ -3,17 +3,31 @@ import java.util.*;
 public class MyDeque<T> {
 
     Object[] arr;
+    int[] priority;
     int head;
     int tail;
     int size;
 
     public MyDeque() {
         arr = new Object[15];
+        priority = new int[15];
         head = tail = arr.length / 2;
     }
 
     public int size() {
         return size;
+    }
+
+    public void add(T item, int p) {
+        if (head == tail+1 || (head == 0 && tail == arr.length-1) )
+            resize();
+        if (arr[head] != null)
+            head--;
+        if (head < 0)
+            head = arr.length - 1;
+        arr[head] = item;
+        priority[head] = p;
+        size++;
     }
 
     public void addFirst(T item) {
