@@ -97,11 +97,6 @@ public class Maze {
         return ("\033[" + x + ";" + y + "H");
     }
 
-
-    private String color(int foreground,int background){
-        return ("\033[0;" + foreground + ";" + background + "m");
-    }
-
     public void clearTerminal(){
         System.out.println(clear);
     }
@@ -235,7 +230,7 @@ public class Maze {
     public String toString(boolean animate) {
         if (!animate)
             return toString();
-        return hide + go(0,0) + toString() + "\n" + show + color(37,40);
+        return hide + go(0,0) + toString() + "\n" + show;
     }
 
     /**return an array [x1,y1,x2,y2,x3,y3...]
@@ -249,10 +244,21 @@ public class Maze {
     }    
 
     public static void main(String[] args) {
-        Maze m = new Maze("data1.dat");
-        System.out.println(m);
-        System.out.println();
-        System.out.println( m.solveDFS() );
-        System.out.println(m);
+        if (args.length == 0) {
+            Maze m = new Maze("data1.dat");
+            System.out.println(m.solveBFS(true));
+            System.out.println(m);
+        } else {
+            Maze m = new Maze(args[0]);
+            System.out.println(m);
+            if (args.length == 2) {
+                int mode = Integer.parseInt(args[1]);
+                System.out.println(
+                        mode == 0 ? m.solveBFS(true) :
+                        mode == 1 ? m.solveDFS(true) :
+                        "Invalid mode");
+            }
+            System.out.println(m);
+        }
     }
 }
