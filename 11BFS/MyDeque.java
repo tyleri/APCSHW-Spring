@@ -67,16 +67,45 @@ public class MyDeque<T> {
         if (usePriority) {
             int[] newPriority = new int[priority.length * 2];
             if (tail > head)
-                System.arraycopy(priority, 0, newPriority, priority.length/2, priority.length);
+                System.arraycopy(priority, 0, newPriority, 0, priority.length);
             else {
-                System.arraycopy(priority, head, newPriority, priority.length/2, priority.length - head);
-                System.arraycopy(priority, 0, newPriority, priority.length*3/2 - head, head);
+                System.arraycopy(priority, head, newPriority, 0, priority.length - head);
+                System.arraycopy(priority, 0, newPriority, priority.length - head, head);
             }
             priority = newPriority;
         }
 
         head = 0;
         tail = arr.length / 2;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T removeSmallest() {
+        if (arr[head] == null)
+            throw new NoSuchElementException();
+
+        int min = priority[head], minIndex = head, currIndex = head;
+
+        while (currIndex != tail) {
+            currIndex++;
+
+            if (currIndex >= priority.length)
+                currIndex = 0;
+
+            if (priority[currIndex] < min) {
+                min = priority[currIndex];
+                minIndex = currIndex;
+            }
+        }
+        T item = (T)arr[minIndex];
+        arr[minIndex] = arr[head];
+        priority[minIndex] = priority[head];
+        arr[head] = null;
+        if (head != tail)
+            head = ++head % arr.length;
+        size--;
+
+        return item;
     }
 
     @SuppressWarnings("unchecked")
@@ -144,35 +173,48 @@ public class MyDeque<T> {
 
         d.add(5, 10);
         d.add(59, 2);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
-        d.add(10, 3);
+        d.add(10, 0);
+        d.add(10, 5);
+        d.add(15, 1);
+        d.add(20, 11);
+        d.add(30, 4);
+        d.add(40, 5);
+        d.add(50, 8);
+        d.add(60, 9);
+        d.add(70, 32);
+        d.add(80, 30);
+        d.add(90, 13);
+        d.add(100, 7);
+        d.add(110, 6);
+        d.add(120, 3);
+        d.add(130, 22);
+        d.add(140, 15);
+        d.add(150, 99);
+        System.out.println(d.toString(true));
+        System.out.println();
+
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        System.out.println(d.removeSmallest());
+        d.add(100, 2);
+        System.out.println(d.toString(true));
+        System.out.println(d.removeSmallest());
         System.out.println(d.toString(true));
 
         // testing queue and stack methods
