@@ -13,11 +13,12 @@ public class Maze {
 
     private char[][]maze;
     private int maxx,maxy;
-    private int startx,starty;
+    private int startx,starty,endx,endy;
     private MyDeque<Node> frontier;
     private int[] solution;
     private int BFS = 0;
     private int DFS = 1;
+    private int BEST = 2;
 
     private class Node {
 
@@ -89,6 +90,10 @@ public class Maze {
                 startx = i % maxx;
                 starty = i / maxx;
             }
+            if(c == 'E'){
+                endx = i % maxx;
+                endy = i / maxx;
+            }
         }
     }
 
@@ -117,12 +122,20 @@ public class Maze {
         return solveDFS(false);
     }
 
+    public boolean solveBest() {
+        return solveBest(false);
+    }
+
     public boolean solveBFS(boolean animate) {
         return solve(BFS, animate);
     }
 
     public boolean solveDFS(boolean animate) {
         return solve(DFS, animate);
+    }
+
+    public boolean solveBest(boolean animate) {
+        return solve(BEST, animate);
     }
 
     private boolean solve(int mode, boolean animate) {
@@ -150,29 +163,45 @@ public class Maze {
             if ( maze[curry+1][currx] != '#' && maze[curry+1][currx] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx, curry+1, n) );
-                else
+                else if (mode == DFS)
                     frontier.addFirst( new Node(currx, curry+1, n) );
+                else if (mode == BEST)
+                    frontier.add(
+                            new Node(currx, curry+1, n),
+                            Math.abs(endx-currx) + Math.abs(endy-(curry+1)));
             }
             // check top space
             if ( maze[curry-1][currx] != '#' && maze[curry-1][currx] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx, curry-1, n) );
-                else
+                else if (mode == DFS)
                     frontier.addFirst( new Node(currx, curry-1, n) );
+                else if (mode == BEST)
+                    frontier.add(
+                            new Node(currx, curry-1, n),
+                            Math.abs(endx-currx) + Math.abs(endy-(curry-1)));
             }
             // check right space
             if ( maze[curry][currx+1] != '#' && maze[curry][currx+1] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx+1, curry, n) );
-                else
+                else if (mode == DFS)
                     frontier.addFirst( new Node(currx+1, curry, n) );
+                else if (mode == BEST)
+                    frontier.add(
+                            new Node(currx+1, curry, n),
+                            Math.abs(endx-(currx+1)) + Math.abs(endy-curry));
             }
             // check left space
             if ( maze[curry][currx-1] != '#' && maze[curry][currx-1] != 'x' ) {
                 if (mode == BFS)
                     frontier.addLast( new Node(currx-1, curry, n) );
-                else
+                else if (mode == DFS)
                     frontier.addLast( new Node(currx-1, curry, n) );
+                else if (mode == BEST)
+                    frontier.add(
+                            new Node(currx, curry, n),
+                            Math.abs(endx-(currx-1)) + Math.abs(endy-curry));
             }
 
             // if there's nowhere else to go, there's no exit path
@@ -182,7 +211,10 @@ public class Maze {
             }
 
             // get the next space to check
-            n = frontier.removeFirst();
+            if (mode == BEST)
+                n = frontier.removeSmallest();
+            else
+                n = frontier.removeFirst();
             currx = n.getX();
             curry = n.getY();
 
@@ -256,6 +288,7 @@ public class Maze {
                 System.out.println(
                         mode == 0 ? m.solveBFS(true) :
                         mode == 1 ? m.solveDFS(true) :
+                        mode == 2 ? m.solveBest(true) :
                         "Invalid mode");
             }
             System.out.println(m);
