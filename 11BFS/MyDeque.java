@@ -53,7 +53,6 @@ public class MyDeque<T> {
     }
 
     private void resize() {
-        int newIndex = arr.length / 2, oldIndex = head;
         Object[] newArr = new Object[arr.length * 2];
         if (tail > head)
             System.arraycopy(arr, 0, newArr, arr.length/2, arr.length);
