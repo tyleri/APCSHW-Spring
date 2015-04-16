@@ -200,7 +200,7 @@ public class Maze {
                     frontier.addLast( new Node(currx-1, curry, n) );
                 else if (mode == BEST)
                     frontier.add(
-                            new Node(currx, curry, n),
+                            new Node(currx-1, curry, n),
                             Math.abs(endx-(currx-1)) + Math.abs(endy-curry));
             }
 
@@ -285,11 +285,14 @@ public class Maze {
             System.out.println(m);
             if (args.length == 2) {
                 int mode = Integer.parseInt(args[1]);
-                System.out.println(
-                        mode == 0 ? m.solveBFS(true) :
-                        mode == 1 ? m.solveDFS(true) :
-                        mode == 2 ? m.solveBest(true) :
-                        "Invalid mode");
+                if (mode == 0)
+                    m.solveBFS(true);
+                if (mode == 1)
+                    m.solveDFS(true);
+                if (mode == 2)
+                    m.solveBest(true);
+            } else {
+                m.solveBest(true);
             }
             System.out.println(m);
         }
