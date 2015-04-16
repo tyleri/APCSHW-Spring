@@ -276,25 +276,25 @@ public class Maze {
     }    
 
     public static void main(String[] args) {
-        if (args.length == 0) {
-            Maze m = new Maze("data1.dat");
-            System.out.println(m.solveBFS(true));
-            System.out.println(m);
-        } else {
-            Maze m = new Maze(args[0]);
-            System.out.println(m);
-            if (args.length == 2) {
-                int mode = Integer.parseInt(args[1]);
-                if (mode == 0)
-                    m.solveBFS(true);
-                if (mode == 1)
-                    m.solveDFS(true);
-                if (mode == 2)
-                    m.solveBest(true);
-            } else {
+        Maze m;
+
+        if (args.length < 2)
+            m = new Maze("data1.dat");
+        else
+            m = new Maze(args[1]);
+
+        if (args.length == 0)
+            m.solveBFS(true);
+        else {
+            int mode = Integer.parseInt(args[0]);
+            if (mode == 0)
+                m.solveBFS(true);
+            if (mode == 1)
+                m.solveDFS(true);
+            if (mode == 2)
                 m.solveBest(true);
-            }
-            System.out.println(m);
         }
+
+        System.out.println(m);
     }
 }
