@@ -226,9 +226,11 @@ public class Maze {
             if (mode == BEST)
                 n = frontier.removeSmallest();
             else
-                n = frontier.removeFirst();
-            currx = n.getX();
-            curry = n.getY();
+                do {
+                    n = frontier.removeFirst();
+                    currx = n.getX();
+                    curry = n.getY();
+                } while (maze[curry][currx] == 'x');
 
         } while ( maze[curry][currx] != 'E' );
 
