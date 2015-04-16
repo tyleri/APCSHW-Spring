@@ -26,11 +26,19 @@ public class Maze {
         private int x;
         private int y;
         private Node prev;
+        private int step;
 
         public Node(int xcor, int ycor, Node prevNode) {
             x = xcor;
             y = ycor;
             prev = prevNode;
+        }
+        
+        public Node(int xcor, int ycor, Node prevNode, int s) {
+            x = xcor;
+            y = ycor;
+            prev = prevNode;
+            step = s;
         }
 
         public int getX() {
@@ -43,6 +51,10 @@ public class Maze {
 
         public Node getPrev() {
             return prev;
+        }
+
+        public int getStep() {
+            return step;
         }
 
     }
@@ -151,7 +163,7 @@ public class Maze {
     }
 
     private boolean solve(int mode, boolean animate) {
-        int currx = startx, curry = starty;
+        int currx = startx, curry = starty, currStep = 0;
         Node n = new Node(currx, curry, null);
 
         // copy maze over so I can modify it without worrying
@@ -181,6 +193,10 @@ public class Maze {
                     frontier.add(
                             new Node(currx, curry+1, n),
                             Math.abs(endx-currx) + Math.abs(endy-(curry+1)));
+                else if (mode == ASTAR)
+                    frontier.add(
+                            new Node(currx, curry+1, n, currStep+1),
+                            Math.abs(endx-currx) + Math.abs(endy-(curry+1)) + currStep+1);
             }
             // check top space
             if ( maze[curry-1][currx] != '#' && maze[curry-1][currx] != 'x' ) {
@@ -192,6 +208,10 @@ public class Maze {
                     frontier.add(
                             new Node(currx, curry-1, n),
                             Math.abs(endx-currx) + Math.abs(endy-(curry-1)));
+                else if (mode == ASTAR)
+                    frontier.add(
+                            new Node(currx, curry-1, n, currStep+1),
+                            Math.abs(endx-currx) + Math.abs(endy-(curry-1)) + currStep+1);
             }
             // check right space
             if ( maze[curry][currx+1] != '#' && maze[curry][currx+1] != 'x' ) {
@@ -203,6 +223,10 @@ public class Maze {
                     frontier.add(
                             new Node(currx+1, curry, n),
                             Math.abs(endx-(currx+1)) + Math.abs(endy-curry));
+                else if (mode == ASTAR)
+                    frontier.add(
+                            new Node(currx+1, curry, n, currStep+1),
+                            Math.abs(endx-(currx+1)) + Math.abs(endy-curry) + currStep+1);
             }
             // check left space
             if ( maze[curry][currx-1] != '#' && maze[curry][currx-1] != 'x' ) {
@@ -214,6 +238,10 @@ public class Maze {
                     frontier.add(
                             new Node(currx-1, curry, n),
                             Math.abs(endx-(currx-1)) + Math.abs(endy-curry));
+                else if (mode == ASTAR)
+                    frontier.add(
+                            new Node(currx-1, curry, n, currStep+1),
+                            Math.abs(endx-(currx-1)) + Math.abs(endy-curry) + currStep+1);
             }
 
             // if there's nowhere else to go, there's no exit path
@@ -223,8 +251,10 @@ public class Maze {
             }
 
             // get the next space to check
-            if (mode == BEST)
-                n = frontier.removeSmallest();
+            if (mode == BEST || mode == ASTAR)
+                do {
+                    n = frontier.removeSmallest();
+                } while (maze[n.getY()][n.getX()] == 'x');
             else
                 do {
                     n = frontier.removeFirst();
@@ -232,6 +262,8 @@ public class Maze {
 
             currx = n.getX();
             curry = n.getY();
+            if (mode == ASTAR)
+                currStep = n.getStep();
 
         } while ( maze[curry][currx] != 'E' );
 
@@ -308,6 +340,8 @@ public class Maze {
                 m.solveDFS(true);
             if (mode == 2)
                 m.solveBest(true);
+            if (mode == 3)
+                m.solveAStar(true);
         }
 
         System.out.println(m);
