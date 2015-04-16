@@ -96,6 +96,9 @@ public class Maze {
                 endy = i / maxx;
             }
         }
+
+        // clear terminal on initialization
+        System.out.println(clear);
     }
 
     //terminal specific character to move the cursor
