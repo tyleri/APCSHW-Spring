@@ -19,6 +19,7 @@ public class Maze {
     private int BFS = 0;
     private int DFS = 1;
     private int BEST = 2;
+    private int ASTAR = 3;
 
     private class Node {
 
@@ -126,6 +127,10 @@ public class Maze {
         return solveBest(false);
     }
 
+    public boolean solveAStar() {
+        return solveAStar(false);
+    }
+
     public boolean solveBFS(boolean animate) {
         return solve(BFS, animate);
     }
@@ -136,6 +141,10 @@ public class Maze {
 
     public boolean solveBest(boolean animate) {
         return solve(BEST, animate);
+    }
+
+    public boolean solveAStar(boolean animate) {
+        return solve(ASTAR, animate);
     }
 
     private boolean solve(int mode, boolean animate) {
