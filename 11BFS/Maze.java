@@ -228,9 +228,10 @@ public class Maze {
             else
                 do {
                     n = frontier.removeFirst();
-                    currx = n.getX();
-                    curry = n.getY();
-                } while (maze[curry][currx] == 'x');
+                } while (maze[n.getY()][n.getX()] == 'x');
+
+            currx = n.getX();
+            curry = n.getY();
 
         } while ( maze[curry][currx] != 'E' );
 
