@@ -150,7 +150,15 @@ public class BTree<E> {
       
       ====================*/
     public int getHeight( TreeNode<E> curr ) {
-        return -1;
+        TreeNode<E> left = curr.getLeft(), right = curr.getRight();
+        int leftHt, rightHt;
+
+        if (left == null && right == null)
+            return 1;
+
+        leftHt = (left == null ? 0 : getHeight(left));
+        rightHt = (right == null ? 0 : getHeight(right));
+        return 1 + Math.max(leftHt, rightHt);
     }
 
     /*======== public String getLevel() ==========
@@ -194,7 +202,7 @@ public class BTree<E> {
 
         BTree<Integer> t = new BTree<Integer>();
 
-        for ( int i=0; i < 3; i++ ) 
+        for ( int i=0; i < 15; i++ ) 
             t.add( i );
         System.out.println( "Pre-order: ");
         t.traverse( PRE_ORDER );
