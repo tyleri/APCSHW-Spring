@@ -65,13 +65,16 @@ public class BTree<E> {
         TreeNode<E> left = curr.getLeft(), right = curr.getRight();
 
         if (left == null && right == null) {
-
+            if (rand.nextInt(2) == 0)
+                curr.setLeft(bn);
+            else
+                curr.setRight(bn);
         } else if (left == null) {
             curr.setLeft(bn);
         } else if (right == null) {
             curr.setRight(bn);
         } else {
-
+            add((rand.nextInt(2) == 0 ? left : right), bn);
         }
 
 
