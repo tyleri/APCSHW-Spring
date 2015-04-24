@@ -21,10 +21,18 @@ public class BTree<E> {
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;
 
+    private Random rand;
+
     private TreeNode<E> root;
 
     public BTree() {
         root = null;
+        rand = new Random();
+    }
+
+    public BTree(long seed) {
+        root = null;
+        rand = new Random(seed);
     }
 
     /*======== public void add() ==========
