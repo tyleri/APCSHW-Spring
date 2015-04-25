@@ -170,7 +170,26 @@ public class BTree<E> {
       
       ====================*/
     private String getLevel( TreeNode<E> curr, int level, int currLevel ) {
-        return "";
+
+        int betSize = ((int)Math.pow(2, getHeight() - level) * 2 - 1) * 2;
+
+        // create spaces between values
+        char[] arr = new char[betSize];
+        Arrays.fill(arr, ' ');
+        String bet = new String(arr);
+
+        if (curr == null) {
+            String s = "";
+            for (int i = 0; i < Math.pow(2, level - currLevel); i++)
+                s += "xx" + bet;
+            return s;
+        }
+        if (level == currLevel)
+            return String.format("%2s", curr.getData()).replace(' ', '0')
+                   + (level == 1 ? "" : bet);
+
+        return getLevel( curr.getLeft(), level, currLevel+1 ) +
+               getLevel( curr.getRight(), level, currLevel+1 );
     }
     
     /*======== public String toString()) ==========
@@ -195,14 +214,25 @@ public class BTree<E> {
 
       ====================*/
     public String toString() {
-        return "";
+        String s = "";
+        char[] arr;
+        String begin;
+
+        for (int i = 1; i <= getHeight(); i++) {
+            arr = new char[((int)Math.pow(2, getHeight() - i) - 1) * 2];
+            Arrays.fill(arr, ' ');
+            begin = new String(arr);
+
+            s += begin + getLevel(root, i, 1) + "\n";
+        }
+        return s;
     }
     
     public static void main( String[] args ) {
 
         BTree<Integer> t = new BTree<Integer>();
 
-        for ( int i=0; i < 15; i++ ) 
+        for ( int i=0; i < 22; i++ ) 
             t.add( i );
         System.out.println( "Pre-order: ");
         t.traverse( PRE_ORDER );
