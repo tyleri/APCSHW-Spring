@@ -110,6 +110,84 @@ public class BSTree <T extends Comparable> {
         inOrderHelper( t.getRight() );
     }
 
+    /*======== public int getHeight()) ==========
+      Inputs:   
+      Returns: The height of the tree
+
+      Wrapper for the recursive getHeight method
+      ====================*/
+    public int getHeight() {
+        return getHeight( root );
+    }
+    /*======== public int getHeight() ==========
+      Inputs:   BSTreeNode<T> curr  
+      Returns:  The height of the tree rooted at node curr
+
+      ====================*/
+    public int getHeight( BSTreeNode<T> curr ) {
+        BSTreeNode<T> left = curr.getLeft(), right = curr.getRight();
+        int leftHt, rightHt;
+
+        if (left == null && right == null)
+            return 1;
+
+        leftHt = (left == null ? 0 : getHeight(left));
+        rightHt = (right == null ? 0 : getHeight(right));
+        return 1 + Math.max(leftHt, rightHt);
+    }
+
+
+    /*======== public String getLevel() ==========
+      Inputs:   BSTreeNode<T> curr
+                int level
+                int currLevel  
+      Returns: A string containing all the elements on the
+               given level, ordered left -> right
+      
+      ====================*/
+    private String getLevel( BSTreeNode<T> curr, int level, int currLevel ) {
+
+        int betSize = ((int)Math.pow(2, getHeight() - level) * 2 - 1) * 2;
+
+        // create spaces between values
+        char[] arr = new char[betSize];
+        Arrays.fill(arr, ' ');
+        String bet = new String(arr);
+
+        if (curr == null) {
+            String s = "";
+            for (int i = 0; i < Math.pow(2, level - currLevel); i++)
+                s += "xx" + bet;
+            return s;
+        }
+        if (level == currLevel)
+            return String.format("%2s", curr.getData()).replace(' ', '0')
+                   + (level == 1 ? "" : bet);
+
+        return getLevel( curr.getLeft(), level, currLevel+1 ) +
+               getLevel( curr.getRight(), level, currLevel+1 );
+    }
+    
+    /*======== public String toString()) ==========
+      Inputs:   
+      Returns: A string representation of the tree
+
+      ====================*/
+    public String toString() {
+        String s = "";
+        char[] arr;
+        String begin;
+
+        for (int i = 1; i <= getHeight(); i++) {
+            arr = new char[((int)Math.pow(2, getHeight() - i) - 1) * 2];
+            Arrays.fill(arr, ' ');
+            begin = new String(arr);
+
+            s += begin + getLevel(root, i, 1) + "\n";
+        }
+        return s;
+    }
+
 
     public static void main( String[] args ) {
         BSTree bs = new BSTree<Integer>();
@@ -118,6 +196,7 @@ public class BSTree <T extends Comparable> {
         bs.add(9);
         bs.add(100);
         bs.inOrder();
+        System.out.println(bs);
     }
 
 }
