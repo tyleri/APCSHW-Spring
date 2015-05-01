@@ -38,7 +38,16 @@ public class BSTree <T extends Comparable> {
       Add t to the correct place in the tree rooted at curr.
       ====================*/
     private BSTreeNode<T> add(BSTreeNode<T> curr, BSTreeNode<T> t) {
-        return null;
+        if (curr == null) {
+            return t;
+        }
+        
+        if (t.compareTo(curr) < 0) {
+            curr.setLeft( add(curr.getLeft(), t) );
+        } else {
+            curr.setRight( add(curr.getRight(), t) );
+        }
+        return curr;
     }
 
     /*======== public void remove() ==========
@@ -92,7 +101,12 @@ public class BSTree <T extends Comparable> {
 
 
     public static void main( String[] args ) {
-
+        BSTree bs = new BSTree<Integer>();
+        bs.add(5);
+        bs.add(3);
+        bs.add(9);
+        bs.add(100);
+        bs.inOrder();
     }
 
 }
