@@ -69,7 +69,18 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
-        return null;
+        if (c.compareTo(curr) < 0) {
+            curr.setLeft( remove(curr.getLeft(), c) );
+        } else if (c.compareTo(curr) > 0) {
+            curr.setRight( remove(curr.getRight(), c) );
+        } else if (isLeaf(curr)) {
+            return null;
+        } else if (curr.getLeft() == null) {
+            return curr.getLeft();
+        } else if (curr.getRight() == null) {
+            return curr.getRight();
+        }
+        return curr;
     }
 
 
