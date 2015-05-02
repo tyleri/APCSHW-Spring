@@ -214,25 +214,50 @@ public class BTree<E> {
 
       ====================*/
     public String toString() {
+        int height = getHeight();
+        String[][] treeArr = new String[height][(int)Math.pow(2, height)-1];
+        for (int i = 0; i < treeArr.length; i++) {
+            Arrays.fill(treeArr[i], "");
+        }
+
+        fillTreeArr(treeArr, root, 0, treeArr[0].length-1, 0);
+
         String s = "";
-        char[] arr;
-        String begin;
-
-        for (int i = 1; i <= getHeight(); i++) {
-            arr = new char[((int)Math.pow(2, getHeight() - i) - 1) * 2];
-            Arrays.fill(arr, ' ');
-            begin = new String(arr);
-
-            s += begin + getLevel(root, i, 1) + "\n";
+        for (int i = 0; i < treeArr.length; i++) {
+            for (int j = 0; j < treeArr[i].length; j++) {
+                s += treeArr[i][j];
+            }
+            s += "\n\n";
         }
         return s;
+    }
+
+    private void fillTreeArr(String[][] arr, TreeNode<E> tn, int minx, int maxx, int y) {
+        if (tn == null) {
+            return;
+        }
+        int x = (minx + maxx)/2;
+        arr[y][x] = String.valueOf(tn.getData());
+        String spaces = String.format("%" + arr[y][x].length() + "s", "");
+
+        // set spaces above to the same length of spaces
+        for (int i = y-1; i >= 0; i--) {
+            arr[i][x] = spaces;
+        }
+        // set spaces below to the same length of spaces
+        for (int i = y+1; i < arr.length; i++) {
+            arr[i][x] = spaces;
+        }
+
+        fillTreeArr(arr, tn.getLeft(), minx, x-1, y+1);
+        fillTreeArr(arr, tn.getRight(), x+1, maxx, y+1);
     }
     
     public static void main( String[] args ) {
 
         BTree<Integer> t = new BTree<Integer>();
 
-        for ( int i=0; i < 22; i++ ) 
+        for ( int i=100; i < 122; i++ ) 
             t.add( i );
         System.out.println( "Pre-order: ");
         t.traverse( PRE_ORDER );
