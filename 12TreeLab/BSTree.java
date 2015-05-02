@@ -135,38 +135,6 @@ public class BSTree <T extends Comparable> {
         rightHt = (right == null ? 0 : getHeight(right));
         return 1 + Math.max(leftHt, rightHt);
     }
-
-
-    /*======== public String getLevel() ==========
-      Inputs:   BSTreeNode<T> curr
-                int level
-                int currLevel  
-      Returns: A string containing all the elements on the
-               given level, ordered left -> right
-      
-      ====================*/
-    private String getLevel( BSTreeNode<T> curr, int level, int currLevel ) {
-
-        int betSize = ((int)Math.pow(2, getHeight() - level) * 2 - 1) * 2;
-
-        // create spaces between values
-        char[] arr = new char[betSize];
-        Arrays.fill(arr, ' ');
-        String bet = new String(arr);
-
-        if (curr == null) {
-            String s = "";
-            for (int i = 0; i < Math.pow(2, level - currLevel); i++)
-                s += "xx" + bet;
-            return s;
-        }
-        if (level == currLevel)
-            return String.format("%2s", curr.getData()).replace(' ', '0')
-                   + (level == 1 ? "" : bet);
-
-        return getLevel( curr.getLeft(), level, currLevel+1 ) +
-               getLevel( curr.getRight(), level, currLevel+1 );
-    }
     
     /*======== public String toString()) ==========
       Inputs:   
@@ -174,28 +142,56 @@ public class BSTree <T extends Comparable> {
 
       ====================*/
     public String toString() {
+        int height = getHeight();
+        String[][] treeArr = new String[height][(int)Math.pow(2, height)-1];
+        for (int i = 0; i < treeArr.length; i++) {
+            Arrays.fill(treeArr[i], "");
+        }
+
+        fillTreeArr(treeArr, root, 0, treeArr[0].length-1, 0);
+
         String s = "";
-        char[] arr;
-        String begin;
-
-        for (int i = 1; i <= getHeight(); i++) {
-            arr = new char[((int)Math.pow(2, getHeight() - i) - 1) * 2];
-            Arrays.fill(arr, ' ');
-            begin = new String(arr);
-
-            s += begin + getLevel(root, i, 1) + "\n";
+        for (int i = 0; i < treeArr.length; i++) {
+            for (int j = 0; j < treeArr[i].length; j++) {
+                s += treeArr[i][j];
+            }
+            s += "\n\n";
         }
         return s;
     }
 
+    private void fillTreeArr(String[][] arr, BSTreeNode<T> tn, int minx, int maxx, int y) {
+        if (tn == null) {
+            return;
+        }
+        int x = (minx + maxx)/2;
+        arr[y][x] = String.valueOf(tn.getData());
+        String spaces = String.format("%" + arr[y][x].length() + "s", "");
+
+        // set spaces above to the same length of spaces
+        for (int i = y-1; i >= 0; i--) {
+            arr[i][x] = spaces;
+        }
+        // set spaces below to the same length of spaces
+        for (int i = y+1; i < arr.length; i++) {
+            arr[i][x] = spaces;
+        }
+
+        fillTreeArr(arr, tn.getLeft(), minx, x-1, y+1);
+        fillTreeArr(arr, tn.getRight(), x+1, maxx, y+1);
+    }
 
     public static void main( String[] args ) {
         BSTree bs = new BSTree<Integer>();
+        bs.add(10);
+        bs.add(50);
         bs.add(5);
         bs.add(3);
         bs.add(9);
-        bs.add(100);
-        bs.inOrder();
+        bs.add(50000);
+        bs.add(0);
+        bs.add(25);
+        bs.add(8);
         System.out.println(bs);
     }
 
