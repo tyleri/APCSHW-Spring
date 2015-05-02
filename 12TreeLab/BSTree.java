@@ -69,16 +69,35 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
-        if (c.compareTo(curr) < 0) {
+        if (curr == null) {
+            return null;
+        } else if (c.compareTo(curr.getData()) < 0) {
             curr.setLeft( remove(curr.getLeft(), c) );
-        } else if (c.compareTo(curr) > 0) {
+        } else if (c.compareTo(curr.getData()) > 0) {
             curr.setRight( remove(curr.getRight(), c) );
         } else if (isLeaf(curr)) {
             return null;
         } else if (curr.getLeft() == null) {
-            return curr.getLeft();
-        } else if (curr.getRight() == null) {
             return curr.getRight();
+        } else if (curr.getRight() == null) {
+            return curr.getLeft();
+        } else {
+            BSTreeNode<T> replace;
+            if (Math.random() < 0.5) {
+                replace = curr.getLeft();
+                while (replace.getRight() != null) {
+                    replace = replace.getRight();
+                }
+                curr.setData(replace.getData());
+                curr.setLeft(remove(curr.getLeft(), replace.getData()));
+            } else {
+                replace = curr.getRight();
+                while (replace.getLeft() != null) {
+                    replace = replace.getLeft();
+                }
+                curr.setData(replace.getData());
+                curr.setRight(remove(curr.getRight(), replace.getData()));
+            }
         }
         return curr;
     }
@@ -192,6 +211,12 @@ public class BSTree <T extends Comparable> {
         bs.add(0);
         bs.add(25);
         bs.add(8);
+        System.out.println(bs);
+        bs.remove(9);
+        System.out.println(bs);
+        bs.remove(5);
+        System.out.println(bs);
+        bs.remove(50);
         System.out.println(bs);
     }
 
