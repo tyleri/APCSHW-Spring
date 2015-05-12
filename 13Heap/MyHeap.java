@@ -1,10 +1,19 @@
 public class MyHeap {
 
-    int[] heap;
+    private int[] heap;
+    private boolean hasRoot;
+    private boolean isMaxHeap;
 
-    public MyHeap() {}
+    public MyHeap() {
+        heap = new int[16];
+        hasRoot = false;
+        isMaxHeap = true;
+    }
 
-    public MyHeap(boolean isMax) {}
+    public MyHeap(boolean isMax) {
+        this();
+        isMaxHeap = isMax;
+    }
 
     public String toString() {
         return "";
