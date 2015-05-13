@@ -21,6 +21,19 @@ public class MyHeap {
         return Arrays.toString(heap);
     }
     
+    private int maxLen() {
+        int curr, max = 0;
+
+        for (int i = 0; i <= heap[0]; i++) {
+            curr = Integer.toString(heap[i]).length();
+            if (curr > max) {
+                max = curr;
+            }
+        }
+
+        return max;
+    }
+
     public int remove() {
         heap[0]--; // decrement size
         int root = heap[1];
