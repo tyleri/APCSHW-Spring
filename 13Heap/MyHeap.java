@@ -18,7 +18,39 @@ public class MyHeap {
     }
 
     public String toString() {
-        return Arrays.toString(heap);
+        String s = "";
+        int len = maxLen();
+        int maxLevel = (int)(Math.log(heap[0]) / Math.log(2));
+        s += getStartSpaces(maxLevel, len);
+
+        int index = 1, row = 0;
+        for (int i = 0; i <= maxLevel; i++) {
+            for (int j = 0; j < Math.pow(2, i); j++) {
+                s += String.format("%" + len + "d", heap[index]).replace(" ", "0");
+                s += getBetSpaces(maxLevel-row, len);
+                index++;
+                if (index > heap[0]) {
+                    break;
+                }
+            }
+            s += "\n";
+            row++;
+            s += getStartSpaces(maxLevel-row, len);
+        }
+
+        return s;
+    }
+
+    private String getStartSpaces(int levelFromBot, int len) {
+        char[] arr = new char[(int)((Math.pow(2, levelFromBot)-1))*len];
+        Arrays.fill(arr, ' ');
+        return new String(arr);
+    }
+
+    private String getBetSpaces(int levelFromBot, int len) {
+        char[] arr = new char[((int)((Math.pow(2, levelFromBot)-1))*2+1)*len];
+        Arrays.fill(arr, ' ');
+        return new String(arr);
     }
     
     private int maxLen() {
@@ -120,5 +152,6 @@ public class MyHeap {
         System.out.println(mh.remove());
         System.out.println(mh);
 
+        System.out.println(Math.log(40) / Math.log(2));
     }
 }
