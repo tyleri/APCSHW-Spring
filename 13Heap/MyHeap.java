@@ -119,6 +119,17 @@ public class MyHeap {
         }
 
         heap[0]++;
+        if (heap[0] == heap.length-1) {
+           resize();
+        }
+    }
+
+    private void resize() {
+        System.out.println(heap.length);
+        int[] arr = new int[heap.length*2];
+        System.arraycopy(heap, 0, arr, 0, heap.length);
+        heap = arr;
+        System.out.println(heap.length);
     }
 
     public int peek() {
@@ -152,6 +163,5 @@ public class MyHeap {
         System.out.println(mh.remove());
         System.out.println(mh);
 
-        System.out.println(Math.log(40) / Math.log(2));
     }
 }
