@@ -20,9 +20,37 @@ public class MyHeap {
     public String toString() {
         return Arrays.toString(heap);
     }
-
+    
     public int remove() {
-        return 0;
+        heap[0]--; // decrement size
+        int root = heap[1];
+
+        int index = 1, maxIndex, minIndex;
+        while (heap[index] != 0 && index <= heap[0] && index*2+1 < heap.length)  {
+            if (isMaxHeap) {
+                if (heap[index*2] > heap[index*2+1]) {
+                    maxIndex = index*2;
+                } else {
+                    maxIndex = index*2+1;
+                }
+                heap[index] = heap[maxIndex];
+                index = maxIndex;
+            } else {
+                if (heap[index*2] < heap[index*2+1]) {
+                    minIndex = index*2;
+                } else {
+                    minIndex = index*2+1;
+                }
+                heap[index] = heap[minIndex];
+                index = minIndex;
+            }
+        }
+
+        for (int i = index/2; i <= heap[0]+1; i++) {
+            heap[i] = heap[i+1];
+        }
+
+        return root;
     }
 
     public void add(int n) {
@@ -62,5 +90,22 @@ public class MyHeap {
         System.out.println(mh);
         mh.add(1);
         System.out.println(mh);
+        System.out.println(mh.remove());
+        System.out.println(mh);
+        mh.add(100);
+        System.out.println(mh);
+        mh.add(29);
+        System.out.println(mh);
+        mh.add(50);
+        System.out.println(mh);
+        mh.add(30);
+        System.out.println(mh);
+        mh.add(80);
+        System.out.println(mh);
+        mh.add(21);
+        System.out.println(mh);
+        System.out.println(mh.remove());
+        System.out.println(mh);
+
     }
 }
