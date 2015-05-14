@@ -136,6 +136,10 @@ public class MyHeap {
         return heap[1];
     }
 
+    public int size() {
+        return heap[0];
+    }
+
     public static void main(String[] args) {
         MyHeap mh = new MyHeap();
         mh.add(5);
