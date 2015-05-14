@@ -71,9 +71,9 @@ public class MyHeap {
         int root = heap[1];
 
         int index = 1, maxIndex, minIndex;
-        while (heap[index] != 0 && index <= heap[0] && index*2+1 < heap.length)  {
+        while (index <= heap[0] && index*2+1 < heap.length) {
             if (isMaxHeap) {
-                if (heap[index*2] > heap[index*2+1]) {
+                if (heap[0] == index*2 || heap[index*2] > heap[index*2+1]) {
                     maxIndex = index*2;
                 } else {
                     maxIndex = index*2+1;
@@ -81,7 +81,7 @@ public class MyHeap {
                 heap[index] = heap[maxIndex];
                 index = maxIndex;
             } else {
-                if (heap[index*2] < heap[index*2+1]) {
+                if (heap[0] == index*2 || heap[index*2] < heap[index*2+1]) {
                     minIndex = index*2;
                 } else {
                     minIndex = index*2+1;
@@ -91,7 +91,7 @@ public class MyHeap {
             }
         }
 
-        for (int i = index/2; i <= heap[0]+1; i++) {
+        for (int i = index/2; i <= heap[0]; i++) {
             heap[i] = heap[i+1];
         }
 
