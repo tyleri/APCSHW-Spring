@@ -18,6 +18,9 @@ public class MyHeap {
     }
 
     public String toString() {
+        if (!hasRoot) {
+            return "";
+        }
         String s = "";
         int len = maxLen();
         int maxLevel = (int)(Math.log(heap[0]) / Math.log(2));
@@ -142,9 +145,9 @@ public class MyHeap {
 
     public static void main(String[] args) {
         MyHeap mh = new MyHeap();
-        mh.add(5);
+        mh.add(3);
         System.out.println(mh);
-        mh.add(19);
+        mh.add(4);
         System.out.println(mh);
         mh.add(23);
         System.out.println(mh);
