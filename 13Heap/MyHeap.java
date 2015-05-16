@@ -3,12 +3,10 @@ import java.util.Arrays;
 public class MyHeap {
 
     private int[] heap;
-    private boolean hasRoot;
     private boolean isMaxHeap;
 
     public MyHeap() {
         heap = new int[16];
-        hasRoot = false;
         isMaxHeap = true;
     }
 
@@ -18,6 +16,9 @@ public class MyHeap {
     }
 
     public String toString() {
+        if (heap[0] == 0) {
+            return "";
+        }
         String s = "";
         int len = maxLen();
         int maxLevel = (int)(Math.log(heap[0]) / Math.log(2));
@@ -99,9 +100,8 @@ public class MyHeap {
     }
 
     public void add(int n) {
-        if (!hasRoot) {
+        if (heap[0] == 0) {
             heap[1] = n;
-            hasRoot = true;
         } else if (isMaxHeap) {
             int index = heap[0] + 1; // next index in heap to fill in
             while ( index != 1 && n > heap[index/2]) {
@@ -136,32 +136,28 @@ public class MyHeap {
         return heap[1];
     }
 
+    public int size() {
+        return heap[0];
+    }
+
     public static void main(String[] args) {
         MyHeap mh = new MyHeap();
-        mh.add(5);
-        System.out.println(mh);
-        mh.add(19);
-        System.out.println(mh);
-        mh.add(23);
-        System.out.println(mh);
-        mh.add(1);
-        System.out.println(mh);
-        System.out.println(mh.remove());
-        System.out.println(mh);
-        mh.add(100);
-        System.out.println(mh);
-        mh.add(29);
-        System.out.println(mh);
-        mh.add(50);
-        System.out.println(mh);
-        mh.add(30);
-        System.out.println(mh);
-        mh.add(80);
-        System.out.println(mh);
-        mh.add(21);
-        System.out.println(mh);
-        System.out.println(mh.remove());
-        System.out.println(mh);
-
+        if (args.length == 0) {
+            mh.add(3);
+            System.out.println(mh);
+            mh.add(4);
+            System.out.println(mh);
+            mh.add(23);
+            System.out.println(mh);
+            mh.add(1);
+            System.out.println(mh);
+            System.out.println(mh.remove());
+            System.out.println(mh);
+        } else {
+            for (int i = 0; i < args.length; i++) {
+                mh.add(Integer.parseInt(args[i]));
+                System.out.println(mh);
+            }
+        }
     }
 }
