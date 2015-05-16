@@ -3,12 +3,10 @@ import java.util.Arrays;
 public class MyHeap {
 
     private int[] heap;
-    private boolean hasRoot;
     private boolean isMaxHeap;
 
     public MyHeap() {
         heap = new int[16];
-        hasRoot = false;
         isMaxHeap = true;
     }
 
@@ -18,7 +16,7 @@ public class MyHeap {
     }
 
     public String toString() {
-        if (!hasRoot) {
+        if (heap[0] == 0) {
             return "";
         }
         String s = "";
@@ -102,9 +100,8 @@ public class MyHeap {
     }
 
     public void add(int n) {
-        if (!hasRoot) {
+        if (heap[0] == 0) {
             heap[1] = n;
-            hasRoot = true;
         } else if (isMaxHeap) {
             int index = heap[0] + 1; // next index in heap to fill in
             while ( index != 1 && n > heap[index/2]) {
