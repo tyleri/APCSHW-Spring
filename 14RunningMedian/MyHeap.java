@@ -145,30 +145,22 @@ public class MyHeap {
 
     public static void main(String[] args) {
         MyHeap mh = new MyHeap();
-        mh.add(3);
-        System.out.println(mh);
-        mh.add(4);
-        System.out.println(mh);
-        mh.add(23);
-        System.out.println(mh);
-        mh.add(1);
-        System.out.println(mh);
-        System.out.println(mh.remove());
-        System.out.println(mh);
-        mh.add(100);
-        System.out.println(mh);
-        mh.add(29);
-        System.out.println(mh);
-        mh.add(50);
-        System.out.println(mh);
-        mh.add(30);
-        System.out.println(mh);
-        mh.add(80);
-        System.out.println(mh);
-        mh.add(21);
-        System.out.println(mh);
-        System.out.println(mh.remove());
-        System.out.println(mh);
-
+        if (args.length == 0) {
+            mh.add(3);
+            System.out.println(mh);
+            mh.add(4);
+            System.out.println(mh);
+            mh.add(23);
+            System.out.println(mh);
+            mh.add(1);
+            System.out.println(mh);
+            System.out.println(mh.remove());
+            System.out.println(mh);
+        } else {
+            for (int i = 0; i < args.length; i++) {
+                mh.add(Integer.parseInt(args[i]));
+                System.out.println(mh);
+            }
+        }
     }
 }
