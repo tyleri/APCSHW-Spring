@@ -23,12 +23,8 @@ public class RunningMedian {
     }
 
     public double getMedian() {
-        if (left.size() + right.size() == 0) {
-            return 0;
-        } else if (left.size() + right.size() == 1) {
-            return left.peek();
-        } else if (left.size() == right.size()) {
-            return (left.peek() + right.peek()) / 2;
+        if (left.size() == right.size()) {
+            return (left.peek() + right.peek()) / 2.0;
         } else if (left.size() > right.size()) {
             return left.peek();
         } else {
@@ -47,7 +43,7 @@ public class RunningMedian {
             System.out.println(rm.getMedian());
         } else {
             for (int i = 0; i < args.length; i++) {
-                rm.add(args[i]);
+                rm.add(Integer.parseInt(args[i]));
                 System.out.println("Median: " + rm.getMedian());
             }
         }
