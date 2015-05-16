@@ -8,22 +8,18 @@ public class RunningMedian {
     }
 
     public void add(int value) {
-        if (left.size() + right.size() == 0) {
+        if (value < getMedian()) {
             left.add(value);
-        } else if (left.size() + right.size() == 1) {
-            if (value < left.peek()) {
-                left.add(value);
-                value = left.remove();
+            while (left.size() - right.size() > 1) {
+                right.add(left.remove());
             }
-            right.add(value);
         } else {
-            int median = getMedian();
-            if (value > median) {
-                right.add(value);
-            } else {
-                left.add(value);
+            right.add(value);
+            while (right.size() - left.size() > 1) {
+                left.add(right.remove());
             }
         }
+
     }
 
     public double getMedian() {
@@ -40,7 +36,7 @@ public class RunningMedian {
         }
     }
 
-    public static void main(String args) {
+    public static void main(String[] args) {
         RunningMedian rm = new RunningMedian();
         if (args.length == 0) {
             rm.add(3);
