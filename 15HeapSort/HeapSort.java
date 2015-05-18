@@ -45,7 +45,20 @@ public class HeapSort {
     }
 
     public static void main(String[] args) {
-        HeapSort hs = new HeapSort( new int[] {1, 5, 3, 19, 4, 12} );
+        int[] array;
+        if (args.length == 0) {
+            array = new int[10];
+            for (int i = 0; i < 10; i++) {
+                array[i] = (int)(Math.random() * 100);
+            }
+        } else {
+            array = new int[args.length];
+            for (int i = 0; i < args.length; i++) {
+                array[i] = Integer.parseInt(args[i]);
+            }
+        }
+
+        HeapSort hs = new HeapSort(array);
         System.out.println(hs);
         hs.sort();
         System.out.println(hs);
