@@ -10,32 +10,43 @@ public class HeapSort {
         heapify();
 
         int end = arr.length-1;
+        while (end > 0) {
+            // swap first (biggest element) and last in heap
+            int temp = arr[end];
+            arr[end] = arr[0];
+            arr[0] = temp;
+            end--;
+
+            pushDown(0, end);
+        }
     }
 
     private void heapify() {
         int index = arr.length / 2 - 1; // first element that needs to be pushed down
         for (int i = index; i >= 0; i--) { // push down each element
-            pushDown(i);
+            pushDown(i, arr.length-1);
         }
     }
 
-    private void pushDown(int index) {
+    private void pushDown(int index, int end) {
         int biggestChild;
-        for (int j = index; j <= arr.length/2-1; j++) { // keep pushing element down to the right place
+        while (index*2+1 <= end) { // keep pushing element down to the right place
 
             // if the element only has one child or left child > right child
-            if (j*2+2 == arr.length || arr[j*2+1] > arr[j*2+2]) {
-                biggestChild = j*2+1;
+            if (index*2+2 == end+1 || arr[index*2+1] > arr[index*2+2]) {
+                biggestChild = index*2+1;
             } else { // if right child > left child
-                biggestChild = j*2+2;
+                biggestChild = index*2+2;
             }
 
             // if the biggest of the children is bigger than the element, swap
-            if (arr[j] < arr[biggestChild]) {
-                int temp = arr[j];
-                arr[j] = arr[biggestChild];
+            if (arr[index] < arr[biggestChild]) {
+                int temp = arr[index];
+                arr[index] = arr[biggestChild];
                 arr[biggestChild] = temp;
             }
+
+            index = biggestChild;
         }
     }
 
